@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FFFAF7;
+  --foreground: #262126;
+  --brand: #563169;
+  --accent: #ff6500;
+  --accent-action: #c94c00;
+}
+
+@layer base {
+  html,
+  body {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-background text-charcoal antialiased font-sans;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container-page {
+  @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-shell {
+  @apply container-page py-12 sm:py-16 lg:py-20;
+}
+
+.section-title {
+  @apply text-2xl sm:text-3xl lg:text-[2.5rem] font-semibold tracking-tight text-charcoal;
+}
+
+.section-title-inverse {
+  @apply text-2xl sm:text-3xl lg:text-[2.5rem] font-semibold tracking-tight text-white;
+}
+
+.section-eyebrow {
+  @apply text-xs sm:text-sm uppercase tracking-[0.16em] text-brand mb-2 font-semibold;
+}
+
+.section-eyebrow-inverse {
+  @apply text-xs sm:text-sm uppercase tracking-[0.16em] text-brand-muted mb-2 font-semibold;
+}
+
+.section-subtitle {
+  @apply mt-3 text-sm sm:text-base text-muted max-w-2xl;
+}
+
+.section-subtitle-inverse {
+  @apply mt-3 text-sm sm:text-base text-white/80 max-w-2xl;
+}
+
+.card-soft {
+  @apply rounded-2xl bg-surface shadow-soft border border-line transition-transform duration-200;
+}
+
+.card-soft:hover {
+  @apply -translate-y-0.5;
+}
+
+@keyframes fade-up-soft {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up-soft {
+  animation: fade-up-soft 600ms ease-out both;
+}
+
+.animation-delay-1 {
+  animation-delay: 120ms;
+}
+
+.animation-delay-2 {
+  animation-delay: 220ms;
+}
+
+.hero-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  pointer-events: none;
+}
