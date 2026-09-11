@@ -3,6 +3,8 @@ import { Locale, isLocale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
 import { getCompanyInfo } from "@/lib/company";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: { locale: string };
 };
