@@ -210,7 +210,7 @@ const tr = {
     subtitle:
       "Ürünler, sipariş, iş birliği veya genel sorularınız için bize ulaşabilirsiniz.",
     emailLabel: "E-posta",
-    emailValue: "hello@petiwell.com",
+    emailValue: "petiwelltr@gmail.com",
     phoneLabel: "Telefon",
     addressLabel: "Adres",
     taxLabel: "Vergi bilgileri",
@@ -261,7 +261,7 @@ const tr = {
       {
         id: "contact",
         title: "İletişim",
-        body: "Sorularınız için hello@petiwell.com adresine yazabilirsiniz."
+        body: "Sorularınız için petiwelltr@gmail.com adresine yazabilirsiniz."
       }
     ]
   },
@@ -289,7 +289,7 @@ const tr = {
         {
           id: "rights",
           title: "Haklarınız",
-          body: "KVKK m.11 kapsamındaki haklarınız için hello@petiwell.com üzerinden başvurabilirsiniz."
+          body: "KVKK m.11 kapsamındaki haklarınız için petiwelltr@gmail.com üzerinden başvurabilirsiniz."
         }
       ]
     },
@@ -328,7 +328,7 @@ const tr = {
         {
           id: "return",
           title: "İade süreci",
-          body: "İade talepleri hello@petiwell.com adresine sipariş numarası ile iletilir. Uygun iadelerde bedel, ödemenin yapıldığı yönteme göre iade edilir."
+          body: "İade talepleri petiwelltr@gmail.com adresine sipariş numarası ile iletilir. Uygun iadelerde bedel, ödemenin yapıldığı yönteme göre iade edilir."
         }
       ]
     },

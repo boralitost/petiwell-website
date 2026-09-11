@@ -23,7 +23,7 @@ export function getCompanyInfo(): CompanyInfo {
     address: env("COMPANY_ADDRESS", "[Açık adres — doldurun]"),
     city: env("COMPANY_CITY", "[İl / İlçe — doldurun]"),
     phone: env("COMPANY_PHONE", "[Telefon — doldurun]"),
-    email: env("COMPANY_EMAIL", "hello@petiwell.com"),
+    email: env("COMPANY_EMAIL", "petiwelltr@gmail.com"),
     taxOffice: env("COMPANY_TAX_OFFICE", "[Vergi dairesi — doldurun]"),
     taxNumber: env("COMPANY_TAX_NUMBER", "[VKN — doldurun]"),
     mersis: env("COMPANY_MERSIS", "")

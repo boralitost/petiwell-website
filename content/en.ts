@@ -209,7 +209,7 @@ const en = {
     subtitle:
       "For products, orders, partnerships, or general questions, you can reach us.",
     emailLabel: "Email",
-    emailValue: "hello@petiwell.com",
+    emailValue: "petiwelltr@gmail.com",
     phoneLabel: "Phone",
     addressLabel: "Address",
     taxLabel: "Tax details",
@@ -260,7 +260,7 @@ const en = {
       {
         id: "contact",
         title: "Contact",
-        body: "For questions, email hello@petiwell.com."
+        body: "For questions, email petiwelltr@gmail.com."
       }
     ]
   },
@@ -288,7 +288,7 @@ const en = {
         {
           id: "rights",
           title: "Your rights",
-          body: "You may exercise KVKK Article 11 rights by emailing hello@petiwell.com."
+          body: "You may exercise KVKK Article 11 rights by emailing petiwelltr@gmail.com."
         }
       ]
     },
@@ -327,7 +327,7 @@ const en = {
         {
           id: "return",
           title: "Returns",
-          body: "Send return requests to hello@petiwell.com with your order number. Eligible refunds return to the original payment method."
+          body: "Send return requests to petiwelltr@gmail.com with your order number. Eligible refunds return to the original payment method."
         }
       ]
     },
