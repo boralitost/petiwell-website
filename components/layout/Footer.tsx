@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
+import { PaymentMarks } from "@/components/layout/PaymentMarks";
 
 type Props = {
   locale: Locale;
@@ -32,41 +33,57 @@ export function Footer({ locale }: Props) {
 
   return (
     <footer className="border-t border-line bg-brand-soft/60 mt-0">
-      <div className="section-shell py-8 sm:py-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="max-w-md">
-          <p className="text-sm text-charcoal">{dict.footer.brandLine}</p>
-          <p className="mt-2 text-xs text-muted">
-            © {new Date().getFullYear()} Petiwell. {dict.footer.rights}
-          </p>
-          <ul className="mt-4 flex items-center gap-3">
-            {SOCIAL_LINKS.map(({ id, href, labelKey, icon: Icon }) => (
-              <li key={id}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={dict.footer.social[labelKey]}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-charcoal transition hover:border-brand/30 hover:text-brand"
-                >
-                  <Icon />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted">
-          <Link href={`/${locale}/faq`} className="hover:text-brand">
-            {dict.footer.faq}
-          </Link>
-          <Link href={`/${locale}/contact`} className="hover:text-brand">
-            {dict.footer.contact}
-          </Link>
-          <Link href={`/${locale}/about`} className="hover:text-brand">
-            {dict.footer.about}
-          </Link>
-          <Link href={`/${locale}/legal`} className="hover:text-brand">
-            {dict.footer.legal}
-          </Link>
+      <div className="section-shell py-8 sm:py-10 flex flex-col gap-8">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+          <div className="max-w-md">
+            <p className="text-sm text-charcoal">{dict.footer.brandLine}</p>
+            <p className="mt-2 text-xs text-muted">
+              © {new Date().getFullYear()} Petiwell. {dict.footer.rights}
+            </p>
+            <p className="mt-3 text-xs text-muted">{dict.footer.paymentsNote}</p>
+            <PaymentMarks />
+            <ul className="mt-4 flex items-center gap-3">
+              {SOCIAL_LINKS.map(({ id, href, labelKey, icon: Icon }) => (
+                <li key={id}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={dict.footer.social[labelKey]}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-charcoal transition hover:border-brand/30 hover:text-brand"
+                  >
+                    <Icon />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm text-muted max-w-lg sm:justify-end">
+            <Link href={`/${locale}/faq`} className="hover:text-brand">
+              {dict.footer.faq}
+            </Link>
+            <Link href={`/${locale}/contact`} className="hover:text-brand">
+              {dict.footer.contact}
+            </Link>
+            <Link href={`/${locale}/about`} className="hover:text-brand">
+              {dict.footer.about}
+            </Link>
+            <Link href={`/${locale}/legal`} className="hover:text-brand">
+              {dict.footer.legal}
+            </Link>
+            <Link href={`/${locale}/privacy`} className="hover:text-brand">
+              {dict.footer.privacy}
+            </Link>
+            <Link href={`/${locale}/cookies`} className="hover:text-brand">
+              {dict.footer.cookies}
+            </Link>
+            <Link href={`/${locale}/shipping`} className="hover:text-brand">
+              {dict.footer.shipping}
+            </Link>
+            <Link href={`/${locale}/distance-sales`} className="hover:text-brand">
+              {dict.footer.distanceSales}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

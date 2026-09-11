@@ -34,6 +34,11 @@ export interface Product {
   campaignEligible: boolean;
   promoLabel: LocalizedField;
   accent: "orange" | "purple";
+  /** Commerce fields — prices are KDV-inclusive TRY list prices. Set before enabling direct sales. */
+  sku: string;
+  /** List price in TRY. 0 = not sellable on-site yet. */
+  priceTry: number;
+  stock: number;
 }
 
 /**
@@ -149,7 +154,10 @@ const products: Product[] = [
     promoLabel: {
       tr: "2. Ürün 1 TL*",
       en: "2nd Product 1 TL*"
-    }
+    },
+    sku: "PW-PLUS-B-50ML",
+    priceTry: envNumber("PRODUCT_PRICE_PLUS_B", 0),
+    stock: envNumber("PRODUCT_STOCK_PLUS_B", 0)
   },
   {
     id: "sterile-paste",
@@ -256,9 +264,19 @@ const products: Product[] = [
     promoLabel: {
       tr: "2. Ürün 1 TL*",
       en: "2nd Product 1 TL*"
-    }
+    },
+    sku: "PW-STERILE-PASTE-100G",
+    priceTry: envNumber("PRODUCT_PRICE_STERILE_PASTE", 0),
+    stock: envNumber("PRODUCT_STOCK_STERILE_PASTE", 0)
   }
 ];
+
+function envNumber(key: string, fallback: number): number {
+  const raw = process.env[key];
+  if (raw == null || raw === "") return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
 
 export function getProducts(locale: Locale) {
   return products.map((product) => localizeProduct(product, locale));
@@ -299,8 +317,29 @@ function localizeProduct(product: Product, locale: Locale) {
     hasTrendyolUrl: Boolean(trendyolUrl),
     campaignEligible: product.campaignEligible,
     promoLabel: product.promoLabel[locale],
-    accent: product.accent
+    accent: product.accent,
+    sku: product.sku,
+    priceTry: product.priceTry,
+    stock: product.stock,
+    inStock: product.stock > 0,
+    sellableOnSite: product.priceTry > 0 && product.stock > 0
   };
+}
+
+/** Server-side catalog lookup (authoritative for checkout totals). */
+export function getCatalogProduct(id: string) {
+  return products.find((item) => item.id === id) ?? null;
+}
+
+export function listCatalogProducts() {
+  return products.map((p) => ({
+    id: p.id,
+    sku: p.sku,
+    nameTr: p.name.tr,
+    nameEn: p.name.en,
+    priceTry: p.priceTry,
+    stock: p.stock
+  }));
 }
 
 export type LocalizedProduct = ReturnType<typeof getProduct>;

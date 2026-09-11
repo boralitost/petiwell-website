@@ -4,6 +4,8 @@ import { isLocale, Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CookieBanner } from "@/components/layout/CookieBanner";
+import { CartProvider } from "@/components/cart/CartProvider";
 
 type Props = {
   children: ReactNode;
@@ -34,13 +36,16 @@ export async function generateMetadata({
 
 export default function LocaleLayout({ children, params }: Props) {
   const locale = isLocale(params.locale) ? (params.locale as Locale) : "tr";
+  const dict = getDictionary(locale);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar locale={locale} />
-      <main className="flex-1">{children}</main>
-      <Footer locale={locale} />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar locale={locale} />
+        <main className="flex-1">{children}</main>
+        <Footer locale={locale} />
+        <CookieBanner locale={locale} dict={dict} />
+      </div>
+    </CartProvider>
   );
 }
-

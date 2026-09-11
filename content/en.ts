@@ -39,6 +39,7 @@ const en = {
     faq: "FAQ",
     about: "About",
     contact: "Contact",
+    cart: "Cart",
     language: "Language"
   },
   promo: {
@@ -206,12 +207,16 @@ const en = {
   contact: {
     title: "We’d love to hear from you.",
     subtitle:
-      "For products, partnerships, or general questions, reach us by email.",
+      "For products, orders, partnerships, or general questions, you can reach us.",
     emailLabel: "Email",
     emailValue: "hello@petiwell.com",
+    phoneLabel: "Phone",
+    addressLabel: "Address",
+    taxLabel: "Tax details",
+    companyLabel: "Seller",
     noteTitle: "Message form",
     noteBody:
-      "The web form is not active right now. Please email us directly — we’ll get back as soon as we can.",
+      "The web form is not active right now. Please email or call us — we’ll get back as soon as we can.",
     formDisclaimer:
       "For medical questions about product use, please contact your veterinarian."
   },
@@ -221,7 +226,7 @@ const en = {
       "Petiwell is not a single-product brand. Plus + B is positioned for coat and skin care; Sterile Paste is positioned for hairball care.",
       "Plus + B comes in a dropper vitamin format. Sterile Paste is a malt paste format, positioned especially for sterilized cats’ everyday use.",
       "Our brand voice is soft, premium, and restrained. We aim to explain what each product is for in a clear way.",
-      "Purchases happen on Trendyol; this site helps you understand the products."
+      "Purchases may be completed on this site (when enabled) or via our Trendyol store."
     ]
   },
   legal: {
@@ -230,7 +235,7 @@ const en = {
       {
         id: "site",
         title: "Site use",
-        body: "This website is provided for information about the Petiwell brand and products. Content is informational and does not constitute a binding offer."
+        body: "This website provides information about Petiwell and, when enabled, distance selling of products."
       },
       {
         id: "product",
@@ -239,13 +244,13 @@ const en = {
       },
       {
         id: "channel",
-        title: "Sales channel",
-        body: "Purchases are completed on Trendyol. Price, stock, shipping, and campaign terms follow current Trendyol information."
+        title: "Sales channels",
+        body: "Products may be sold on Trendyol and directly on this site via PayTR (when enabled). Price, stock, and shipping follow the active sales channel."
       },
       {
         id: "price",
         title: "Price and campaign information",
-        body: "Campaign messages on this site are informational. All terms, including “2nd product 1 TL”, may change based on current Trendyol rules."
+        body: "Campaign messages on this site are informational. Trendyol campaigns follow Trendyol rules. Site prices are listed VAT-inclusive unless stated otherwise."
       },
       {
         id: "ip",
@@ -259,6 +264,135 @@ const en = {
       }
     ]
   },
+  policies: {
+    privacy: {
+      title: "Privacy & KVKK Notice",
+      intro:
+        "This notice explains how personal data is processed under Turkish KVKK. Seller identity and contact details are on the Contact page.",
+      sections: [
+        {
+          id: "data",
+          title: "Data processed",
+          body: "For orders and support we may process name, email, phone, shipping/billing address, order contents, and payment result (card data is handled by PayTR; not stored on this site)."
+        },
+        {
+          id: "purpose",
+          title: "Purposes",
+          body: "Contract formation and performance, delivery, invoicing, customer support, legal duties, and secure payment processing."
+        },
+        {
+          id: "transfer",
+          title: "Transfers",
+          body: "Data may be shared with PayTR, carriers, email providers, and competent authorities as required and purpose-limited."
+        },
+        {
+          id: "rights",
+          title: "Your rights",
+          body: "You may exercise KVKK Article 11 rights by emailing hello@petiwell.com."
+        }
+      ]
+    },
+    cookies: {
+      title: "Cookie Policy",
+      intro:
+        "We use cookies for site operation, cart experience, and (with consent) analytics.",
+      sections: [
+        {
+          id: "types",
+          title: "Types",
+          body: "Essential cookies (cart, session, security) are required. Analytics cookies are used only with consent."
+        },
+        {
+          id: "manage",
+          title: "Control",
+          body: "You can clear or block cookies in your browser. Blocking essential cookies may break cart/checkout."
+        }
+      ]
+    },
+    shipping: {
+      title: "Delivery & Returns",
+      intro:
+        "These terms apply to distance-sales orders on petiwell.com. Trendyol orders follow Trendyol rules.",
+      sections: [
+        {
+          id: "delivery",
+          title: "Delivery",
+          body: "Orders ship subject to stock and operations. Estimated timing is shown at confirmation. On this site, listed product prices include VAT and standard shipping; checkout shows shipping as 0 TRY."
+        },
+        {
+          id: "withdrawal",
+          title: "Withdrawal",
+          body: "Consumers generally have 14 days to withdraw after delivery (legal exceptions reserved). Hygiene limits may apply to opened/used products."
+        },
+        {
+          id: "return",
+          title: "Returns",
+          body: "Send return requests to hello@petiwell.com with your order number. Eligible refunds return to the original payment method."
+        }
+      ]
+    },
+    distanceSales: {
+      title: "Distance Sales Agreement",
+      intro:
+        "This agreement applies to distance sales concluded on petiwell.com. Seller details are on the Contact page.",
+      sections: [
+        {
+          id: "subject",
+          title: "Subject",
+          body: "Sale and delivery of ordered products. Features, tax-inclusive total, shipping, and payment method appear in the order summary and pre-information."
+        },
+        {
+          id: "payment",
+          title: "Payment",
+          body: "Payments are processed via PayTR. Card data is not shared with the seller."
+        },
+        {
+          id: "withdrawal",
+          title: "Withdrawal",
+          body: "Buyers have a statutory 14-day withdrawal right where applicable. See Delivery & Returns."
+        }
+      ]
+    },
+    preInfo: {
+      title: "Pre-contract Information",
+      intro:
+        "Before payment we present seller identity, product essentials, tax-inclusive totals, shipping fees, and withdrawal rights.",
+      sections: [
+        {
+          id: "seller",
+          title: "Seller",
+          body: "Legal name, address, phone, email, and tax details are on the Contact page."
+        },
+        {
+          id: "product",
+          title: "Product & price",
+          body: "Name, quantity, unit price, and totals appear in the order summary. Prices are VAT-inclusive unless stated otherwise."
+        },
+        {
+          id: "rights",
+          title: "Consumer rights",
+          body: "Withdrawal/returns are in Delivery & Returns; personal data in the Privacy/KVKK notice."
+        }
+      ]
+    }
+  },
+  cookiesBanner: {
+    message:
+      "We use essential cookies. By continuing you accept our cookie policy.",
+    accept: "Accept",
+    learnMore: "Cookie policy"
+  },
+  cart: {
+    title: "Cart",
+    empty: "Your cart is empty.",
+    add: "Add to cart",
+    checkout: "Checkout",
+    subtotal: "Subtotal",
+    shipping: "Shipping",
+    total: "Total",
+    comingSoon:
+      "Direct site checkout is coming soon. You can buy on Trendyol for now."
+  },
   footer: {
     brandLine:
       "Petiwell — Clear products for coat-skin care and hairball care.",
@@ -267,6 +401,11 @@ const en = {
     contact: "Contact",
     about: "About",
     legal: "Legal",
+    privacy: "Privacy / KVKK",
+    cookies: "Cookies",
+    shipping: "Delivery & Returns",
+    distanceSales: "Distance Sales",
+    paymentsNote: "Payments via PayTR · Visa / Mastercard",
     social: {
       instagram: "Instagram",
       tiktok: "TikTok",
@@ -275,7 +414,8 @@ const en = {
   },
   purchase: {
     note: "You will complete your purchase on Trendyol.",
-    unavailableNote: "This button activates when the real product link is added."
+    unavailableNote: "This button activates when the real product link is added.",
+    siteBuy: "Buy on this site"
   }
 };
 

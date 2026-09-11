@@ -39,6 +39,7 @@ const tr = {
     faq: "SSS",
     about: "Hakkımızda",
     contact: "İletişim",
+    cart: "Sepet",
     language: "Dil"
   },
   promo: {
@@ -207,12 +208,16 @@ const tr = {
   contact: {
     title: "Bizimle iletişime geçin.",
     subtitle:
-      "Ürünler, iş birliği veya genel sorularınız için e-posta ile ulaşabilirsiniz.",
+      "Ürünler, sipariş, iş birliği veya genel sorularınız için bize ulaşabilirsiniz.",
     emailLabel: "E-posta",
     emailValue: "hello@petiwell.com",
+    phoneLabel: "Telefon",
+    addressLabel: "Adres",
+    taxLabel: "Vergi bilgileri",
+    companyLabel: "Satıcı",
     noteTitle: "Mesaj formu",
     noteBody:
-      "Şu anda web formu aktif değildir. Lütfen doğrudan e-posta adresimiz üzerinden yazın; mümkün olan en kısa sürede dönüş yaparız.",
+      "Şu anda web formu aktif değildir. Lütfen e-posta veya telefon ile yazın; mümkün olan en kısa sürede dönüş yaparız.",
     formDisclaimer:
       "Ürün kullanımı ile ilgili tıbbi sorularınız için veteriner hekiminize danışın."
   },
@@ -222,7 +227,7 @@ const tr = {
       "Petiwell, tek ürüne indirgenmiş bir marka değildir. Plus + B tüy ve deri bakımı için; Sterile Paste ise tüy yumağı bakımı için konumlanır.",
       "Plus + B damlalıklı vitamin formatındadır. Sterile Paste malt macunu formatındadır ve özellikle kısırlaştırılmış kedilerin günlük kullanımına yöneliktir.",
       "Marka dili yumuşak, premium ve abartısızdır. Amacımız ürünün ne işe yaradığını sade ve anlaşılır biçimde anlatmaktır.",
-      "Satın alma işlemleri Trendyol üzerinden gerçekleşir; bu site ürünleri tanımanıza yardımcı olur."
+      "Satın alma; site üzerinden (aktif olduğunda) veya Trendyol mağazamız üzerinden gerçekleştirilebilir."
     ]
   },
   legal: {
@@ -231,7 +236,7 @@ const tr = {
       {
         id: "site",
         title: "Site kullanım bilgileri",
-        body: "Bu website Petiwell markası ve ürünleri hakkında bilgilendirme amacıyla sunulur. İçerikler bilgilendirme amaçlıdır ve bağlayıcı bir teklif oluşturmaz."
+        body: "Bu website Petiwell markası ve ürünleri hakkında bilgilendirme ve (aktif olduğunda) mesafeli satış amacıyla sunulur."
       },
       {
         id: "product",
@@ -240,13 +245,13 @@ const tr = {
       },
       {
         id: "channel",
-        title: "Satış kanalı bilgisi",
-        body: "Satın alma işlemleri Trendyol üzerinden gerçekleştirilir. Fiyat, stok, kargo ve kampanya koşulları Trendyol’daki güncel bilgilere tabidir."
+        title: "Satış kanalları",
+        body: "Ürünler Trendyol üzerinden ve site üzerinden doğrudan satış (PayTR ile, aktif olduğunda) sunulabilir. Fiyat, stok ve kargo koşulları ilgili satış kanalındaki güncel bilgilere tabidir."
       },
       {
         id: "price",
         title: "Fiyat ve kampanya bilgisi",
-        body: "Sitede görünen kampanya mesajları bilgilendirme amaçlıdır. “2. ürün 1 TL” dahil tüm kampanya koşulları Trendyol’daki güncel kurallara göre değişebilir."
+        body: "Sitede görünen kampanya mesajları bilgilendirme amaçlıdır. Trendyol kampanyaları Trendyol’daki güncel kurallara göre değişebilir. Site fiyatları KDV dâhil listelenir (ayrıca belirtilmedikçe)."
       },
       {
         id: "ip",
@@ -260,6 +265,134 @@ const tr = {
       }
     ]
   },
+  policies: {
+    privacy: {
+      title: "Gizlilik ve KVKK Aydınlatma Metni",
+      intro:
+        "Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında veri sorumlusu sıfatıyla kişisel verilerinizin işlenmesine ilişkin bilgilendirme amaçlıdır. Şirket unvanı ve iletişim bilgileri İletişim sayfasında yer alır.",
+      sections: [
+        {
+          id: "data",
+          title: "İşlenen veriler",
+          body: "Sipariş ve iletişim süreçlerinde ad-soyad, e-posta, telefon, teslimat/fatura adresi, sipariş içeriği ve ödeme sonucu (kart verisi PayTR’de işlenir; sitemizde saklanmaz) işlenebilir."
+        },
+        {
+          id: "purpose",
+          title: "İşleme amaçları",
+          body: "Sözleşmenin kurulması ve ifası, siparişin teslimi, faturalama, müşteri destek, yasal yükümlülükler ve güvenli ödeme süreçlerinin yürütülmesi."
+        },
+        {
+          id: "transfer",
+          title: "Aktarım",
+          body: "Ödeme kuruluşu (PayTR), kargo firması, e-posta altyapısı ve zorunlu kamu kurumları ile sınırlı ve amaçla bağlı şekilde paylaşılabilir."
+        },
+        {
+          id: "rights",
+          title: "Haklarınız",
+          body: "KVKK m.11 kapsamındaki haklarınız için hello@petiwell.com üzerinden başvurabilirsiniz."
+        }
+      ]
+    },
+    cookies: {
+      title: "Çerez Politikası",
+      intro:
+        "Sitemiz; sitenin çalışması, sepet deneyimi ve (açık rızanızla) analitik ölçüm için çerezler kullanabilir.",
+      sections: [
+        {
+          id: "types",
+          title: "Çerez türleri",
+          body: "Zorunlu çerezler (sepet, oturum, güvenlik) sitenin temel işlevleri için gerekir. Analitik çerezler yalnızca onayınız varsa kullanılır."
+        },
+        {
+          id: "manage",
+          title: "Yönetim",
+          body: "Tarayıcı ayarlarından çerezleri silebilir veya engelleyebilirsiniz. Zorunlu çerezler engellenirse sepet/ödeme çalışmayabilir."
+        }
+      ]
+    },
+    shipping: {
+      title: "Teslimat ve İade Koşulları",
+      intro:
+        "Bu koşullar petiwell.com üzerinden verilen mesafeli satış siparişleri için geçerlidir. Trendyol siparişlerinde Trendyol kuralları uygulanır.",
+      sections: [
+        {
+          id: "delivery",
+          title: "Teslimat",
+          body: "Siparişler, stok ve operasyon durumuna göre kargoya verilir. Tahmini süre sipariş onayında bildirilir. Site üzerinden satışta listelenen ürün fiyatı KDV ve standart kargo bedelini içerir; checkout’ta ayrıca kargo satırı 0 TL görünür."
+        },
+        {
+          id: "withdrawal",
+          title: "Cayma hakkı",
+          body: "Tüketiciler, mesafeli sözleşmelerde ürünün tesliminden itibaren 14 gün içinde cayma hakkına sahiptir (kanuni istisnalar saklıdır). Hijyen nedeniyle açılmış/kullanılmış ürünlerde cayma hakkı sınırlı olabilir; ürün etiketine ve yasal düzenlemelere uyulur."
+        },
+        {
+          id: "return",
+          title: "İade süreci",
+          body: "İade talepleri hello@petiwell.com adresine sipariş numarası ile iletilir. Uygun iadelerde bedel, ödemenin yapıldığı yönteme göre iade edilir."
+        }
+      ]
+    },
+    distanceSales: {
+      title: "Mesafeli Satış Sözleşmesi",
+      intro:
+        "Bu sözleşme, satıcı ile alıcı arasında petiwell.com üzerinden kurulan mesafeli satış ilişkisine uygulanır. Satıcı bilgileri İletişim sayfasındadır.",
+      sections: [
+        {
+          id: "subject",
+          title: "Konu",
+          body: "Sözleşmenin konusu, alıcının sipariş ettiği ürünlerin satışı ve teslimidir. Ürün özellikleri, vergiler dâhil toplam bedel, kargo masrafı ve ödeme yöntemi sipariş özeti ve ön bilgilendirmede gösterilir."
+        },
+        {
+          id: "payment",
+          title: "Ödeme",
+          body: "Ödeme PayTR altyapısı üzerinden alınır. Kart bilgileri satıcıya iletilmez."
+        },
+        {
+          id: "withdrawal",
+          title: "Cayma",
+          body: "Alıcı, yasal çerçevede 14 günlük cayma hakkına sahiptir. Cayma ve iade ayrıntıları Teslimat ve İade sayfasındadır."
+        }
+      ]
+    },
+    preInfo: {
+      title: "Ön Bilgilendirme Formu",
+      intro:
+        "Ödeme öncesinde satıcı bilgileri, ürün temel nitelikleri, vergiler dâhil toplam bedel, kargo ücreti ve cayma hakkı bilgilendirmesi sunulur.",
+      sections: [
+        {
+          id: "seller",
+          title: "Satıcı",
+          body: "Unvan, adres, telefon, e-posta ve vergi bilgileri İletişim sayfasında yer alır."
+        },
+        {
+          id: "product",
+          title: "Ürün ve bedel",
+          body: "Ürün adı, adet, birim fiyat ve toplam bedel sipariş özetinde gösterilir. Fiyatlar aksi belirtilmedikçe KDV dâhildir."
+        },
+        {
+          id: "rights",
+          title: "Tüketici hakları",
+          body: "Cayma hakkı ve iade koşulları Teslimat ve İade sayfasında; kişisel veriler Gizlilik/KVKK metninde açıklanır."
+        }
+      ]
+    }
+  },
+  cookiesBanner: {
+    message:
+      "Sitemiz zorunlu çerezler kullanır. Devam ederek çerez politikamızı kabul etmiş olursunuz.",
+    accept: "Kabul",
+    learnMore: "Çerez politikası"
+  },
+  cart: {
+    title: "Sepet",
+    empty: "Sepetiniz boş.",
+    add: "Sepete ekle",
+    checkout: "Ödemeye geç",
+    subtotal: "Ara toplam",
+    shipping: "Kargo",
+    total: "Toplam",
+    comingSoon: "Site üzerinden satış yakında aktif olacak. Şimdilik Trendyol’dan satın alabilirsiniz."
+  },
   footer: {
     brandLine:
       "Petiwell — Tüy-deri bakımı ve tüy yumağı bakımı için sade ürünler.",
@@ -268,6 +401,11 @@ const tr = {
     contact: "İletişim",
     about: "Hakkımızda",
     legal: "Yasal",
+    privacy: "Gizlilik / KVKK",
+    cookies: "Çerezler",
+    shipping: "Teslimat & İade",
+    distanceSales: "Mesafeli Satış",
+    paymentsNote: "Ödeme altyapısı PayTR · Visa / Mastercard",
     social: {
       instagram: "Instagram",
       tiktok: "TikTok",
@@ -276,7 +414,8 @@ const tr = {
   },
   purchase: {
     note: "Satın alma işlemini Trendyol üzerinde tamamlayacaksınız.",
-    unavailableNote: "Gerçek ürün linki eklendiğinde bu buton aktif olur."
+    unavailableNote: "Gerçek ürün linki eklendiğinde bu buton aktif olur.",
+    siteBuy: "Site üzerinden satın al"
   }
 };
 

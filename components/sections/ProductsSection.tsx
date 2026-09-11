@@ -6,7 +6,9 @@ import { Locale } from "@/lib/i18n";
 import { LocalizedProduct } from "@/lib/product";
 import { PurchaseButton } from "@/components/shared/PurchaseButton";
 import { ProductGallery } from "@/components/shared/ProductGallery";
+import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { isDirectSalesEnabled } from "@/lib/commerce";
 
 type Props = {
   locale: Locale;
@@ -101,9 +103,18 @@ export function ProductsSection({ locale, dict, products }: Props) {
                   </ul>
 
                   <div className="mt-auto space-y-1.5 border-t border-line pt-3">
-                    <p className="text-xs font-medium text-charcoal">
-                      {dict.products.priceHint}
-                    </p>
+                    {product.priceTry > 0 ? (
+                      <p className="text-sm font-semibold text-charcoal">
+                        {new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-TR", {
+                          style: "currency",
+                          currency: "TRY"
+                        }).format(product.priceTry)}
+                      </p>
+                    ) : (
+                      <p className="text-xs font-medium text-charcoal">
+                        {dict.products.priceHint}
+                      </p>
+                    )}
                     <PurchaseButton
                       label={
                         product.hasTrendyolUrl
@@ -123,6 +134,13 @@ export function ProductsSection({ locale, dict, products }: Props) {
                       locale={locale}
                       fullWidth
                     />
+                    {isDirectSalesEnabled() ? (
+                      <AddToCartButton
+                        productId={product.id}
+                        label={dict.cart.add}
+                        disabled={!product.sellableOnSite}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </article>

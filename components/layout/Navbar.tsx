@@ -4,6 +4,7 @@ import { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { PromoBanner } from "./PromoBanner";
+import { CartNavLink } from "@/components/cart/CartNavLink";
 
 type Props = {
   locale: Locale;
@@ -34,6 +35,7 @@ export function Navbar({ locale }: Props) {
             </div>
           </Link>
           <div className="absolute right-0 flex items-center gap-3 sm:gap-4">
+            <CartNavLink locale={locale} label={dict.nav.cart} />
             <LanguageSwitcher currentLocale={locale} />
           </div>
         </div>

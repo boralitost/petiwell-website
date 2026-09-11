@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  pending_payment
+  paid
+  preparing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+enum PaymentStatus {
+  pending
+  success
+  failed
+  refunded
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  orderNumber     String        @unique
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String
+  billingAddress  String
+  city            String
+  district        String        @default("")
+  postalCode      String        @default("")
+  notes           String        @default("")
+  subtotalTry     Decimal       @db.Decimal(10, 2)
+  shippingTry     Decimal       @db.Decimal(10, 2)
+  totalTry        Decimal       @db.Decimal(10, 2)
+  currency        String        @default("TRY")
+  status          OrderStatus   @default(pending_payment)
+  paymentStatus   PaymentStatus @default(pending)
+  paytrMerchantOid String?      @unique
+  trackingNumber  String?
+  distanceSalesAccepted Boolean @default(false)
+  preInfoAccepted Boolean       @default(false)
+  items           OrderItem[]
+  payments        PaymentAttempt[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model OrderItem {
+  id            String  @id @default(cuid())
+  orderId       String
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String
+  sku           String
+  productName   String
+  unitPriceTry  Decimal @db.Decimal(10, 2)
+  quantity      Int
+  lineTotalTry  Decimal @db.Decimal(10, 2)
+}
+
+model PaymentAttempt {
+  id             String        @id @default(cuid())
+  orderId        String
+  order          Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  merchantOid    String        @unique
+  amountTry      Decimal       @db.Decimal(10, 2)
+  currency       String        @default("TRY")
+  status         PaymentStatus @default(pending)
+  errorMessage   String?
+  callbackAt     DateTime?
+  rawCallback    String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+// Mutable stock — catalog prices remain in lib/product.ts
+model ProductInventory {
+  productId String @id
+  sku       String
+  stock     Int    @default(0)
+  updatedAt DateTime @updatedAt
+}
