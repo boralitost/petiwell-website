@@ -3,12 +3,11 @@ import { Locale, isLocale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dictionary";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({
-  params
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
   const dict = getDictionary(locale);
 
@@ -18,7 +17,8 @@ export async function generateMetadata({
   };
 }
 
-export default function FaqPage({ params }: Props) {
+export default async function FaqPage(props: Props) {
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
   const dict = getDictionary(locale);
 

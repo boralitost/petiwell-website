@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { requireAdminRole } from "@/lib/admin-auth";
 import { prisma } from "@/lib/db";
-import { ensureInventorySeeded } from "@/lib/inventory";
+import {
+  ensureInventorySeeded,
+  syncInventoryFromCatalog
+} from "@/lib/inventory";
 import { getCatalogProduct } from "@/lib/product";
+import { isSameOriginRequest } from "@/lib/ambassador-security";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  if (!isAdminAuthenticated()) {
+  if (!(await requireAdminRole(["SUPER_ADMIN", "OPERATIONS"]))) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
@@ -31,9 +35,32 @@ export async function GET() {
   }
 }
 
-export async function PATCH(req: NextRequest) {
-  if (!isAdminAuthenticated()) {
+export async function POST(req: NextRequest) {
+  if (!(await requireAdminRole(["SUPER_ADMIN", "OPERATIONS"]))) {
     return NextResponse.json({ ok: false }, { status: 401 });
+  }
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ ok: false, error: "invalid_origin" }, { status: 403 });
+  }
+
+  try {
+    const body = await req.json().catch(() => ({}));
+    if (body?.action !== "sync_from_catalog") {
+      return NextResponse.json({ ok: false, error: "unknown_action" }, { status: 400 });
+    }
+    const inventory = await syncInventoryFromCatalog();
+    return NextResponse.json({ ok: true, inventory });
+  } catch {
+    return NextResponse.json({ ok: false, error: "db_unavailable" }, { status: 503 });
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  if (!(await requireAdminRole(["SUPER_ADMIN", "OPERATIONS"]))) {
+    return NextResponse.json({ ok: false }, { status: 401 });
+  }
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ ok: false, error: "invalid_origin" }, { status: 403 });
   }
 
   try {

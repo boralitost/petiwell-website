@@ -35,4 +35,6 @@ next-env.d.ts
 .vscode/
 .cursorindexingignore
 .vercel
+.tmp/
 .env*
+!.env.example

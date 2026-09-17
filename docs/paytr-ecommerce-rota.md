@@ -11,12 +11,12 @@ Kod branch: `feature/ecommerce-checkout`
 
 **Canlı satış öncesi sizin taraf:**
 
-1. Plus + B ve Sterile Paste **KDV dahil fiyat + stok** → `.env.local` / Vercel
-2. Postgres `DATABASE_URL` + `npx prisma migrate deploy` + `npx prisma db seed` (veya inventory seed)
-3. PayTR merchant id/key/salt + panelde callback `https://…/api/paytr/callback`
-4. `RESEND_API_KEY` + doğrulanmış `EMAIL_FROM`
-5. `NEXT_PUBLIC_DIRECT_SALES_ENABLED=true` (yalnızca 1–4 hazırken)
-6. ETBİS (idari) + düşük tutarlı canlı sipariş testi
+1. ~~Plus + B ve Sterile Paste **KDV dahil fiyat + stok**~~ → yapıldı (497 / 463–456)
+2. ~~Postgres `DATABASE_URL` + migrate~~ → yapıldı
+3. ~~PayTR merchant id/key/salt~~ → Vercel + `.env.local` (test mode); panelde callback doğrula
+4. ~~`RESEND_API_KEY` + `EMAIL_FROM`~~ → From = `noreply@petiwell.com` (gelen kutusu değil). Reply-To / bildirim = `petiwelltr@gmail.com`. Özel @petiwell.com kutusu sonra.
+5. Preview’de test kartı E2E (success sayfası PayTR durum-sorgu ile paid yapar); **petiwell.com satışı kapalı**
+6. ETBİS (idari) + düşük tutarlı canlı sipariş — siz onaylamadan Production satış açılmaz
 
 Trendyol CTA’lar satış kapalıyken bozulmaz.
 

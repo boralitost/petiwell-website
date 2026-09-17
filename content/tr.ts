@@ -40,6 +40,8 @@ const tr = {
     about: "Hakkımızda",
     contact: "İletişim",
     cart: "Sepet",
+    account: "Hesap",
+    login: "Giriş",
     language: "Dil"
   },
   promo: {
@@ -274,7 +276,7 @@ const tr = {
         {
           id: "data",
           title: "İşlenen veriler",
-          body: "Sipariş ve iletişim süreçlerinde ad-soyad, e-posta, telefon, teslimat/fatura adresi, sipariş içeriği ve ödeme sonucu (kart verisi PayTR’de işlenir; sitemizde saklanmaz) işlenebilir."
+          body: "Sipariş, üyelik (e-posta ile giriş) ve iletişim süreçlerinde ad-soyad, e-posta, telefon, teslimat/fatura adresi, sipariş içeriği ve ödeme sonucu (kart verisi PayTR’de işlenir; sitemizde saklanmaz) işlenebilir."
         },
         {
           id: "purpose",
@@ -296,12 +298,12 @@ const tr = {
     cookies: {
       title: "Çerez Politikası",
       intro:
-        "Sitemiz; sitenin çalışması, sepet deneyimi ve (açık rızanızla) analitik ölçüm için çerezler kullanabilir.",
+        "Sitemiz; sitenin çalışması, sepet deneyimi ve (açık rızanızla) analitik / reklam ölçümü için çerezler kullanabilir.",
       sections: [
         {
           id: "types",
           title: "Çerez türleri",
-          body: "Zorunlu çerezler (sepet, oturum, güvenlik) sitenin temel işlevleri için gerekir. Analitik çerezler yalnızca onayınız varsa kullanılır."
+          body: "Zorunlu çerezler (sepet, oturum, güvenlik) sitenin temel işlevleri için gerekir. Analitik ve reklam çerezleri (Google Analytics, Google Ads) yalnızca “Tümünü kabul et” derseniz kullanılır. “Sadece zorunlu” derseniz reklam/analitik çerezi yazılmaz."
         },
         {
           id: "manage",
@@ -379,8 +381,9 @@ const tr = {
   },
   cookiesBanner: {
     message:
-      "Sitemiz zorunlu çerezler kullanır. Devam ederek çerez politikamızı kabul etmiş olursunuz.",
-    accept: "Kabul",
+      "Zorunlu çerezler sepet ve güvenli ödeme için gerekir. Analitik ve reklam ölçümü (Google) için açık rızanız gerekir.",
+    accept: "Tümünü kabul et",
+    essential: "Sadece zorunlu",
     learnMore: "Çerez politikası"
   },
   cart: {
@@ -390,8 +393,70 @@ const tr = {
     checkout: "Ödemeye geç",
     subtotal: "Ara toplam",
     shipping: "Kargo",
+    discount: "İndirim",
+    promoPlaceholder: "Kampanya kodu",
+    promoApply: "Uygula",
+    promoRemove: "Kaldır",
     total: "Toplam",
-    comingSoon: "Site üzerinden satış yakında aktif olacak. Şimdilik Trendyol’dan satın alabilirsiniz."
+    comingSoon: "Site üzerinden satış yakında aktif olacak. Şimdilik Trendyol’dan satın alabilirsiniz.",
+    loginToPrefill: "Giriş yap, teslimat bilgilerin otomatik dolsun.",
+    loggedInAs: "Giriş yapıldı"
+  },
+  account: {
+    title: "Hesabım",
+    loginTitle: "Giriş",
+    registerTitle: "Üye ol",
+    loginLead: "E-posta ve şifrenle giriş yap. Kart bilgisi sitede saklanmaz.",
+    registerLead: "Hesap oluştur, e-postanı doğrula, siparişlerini ve adresini kaydet.",
+    email: "E-posta",
+    password: "Şifre",
+    passwordConfirm: "Şifre tekrar",
+    currentPassword: "Mevcut şifre",
+    newPassword: "Yeni şifre",
+    submitLogin: "Giriş yap",
+    submitRegister: "Üye ol",
+    forgotPassword: "Şifremi unuttum",
+    forgotLead: "E-postana 6 haneli bir kod göndeririz. Kod 10 dakika geçerlidir.",
+    sendReset: "Kodu gönder",
+    resetTitle: "Yeni şifre belirle",
+    resetSubmit: "Şifreyi kaydet",
+    sending: "Gönderiliyor…",
+    checkInbox: "Mailini kontrol et. 6 haneli kod 10 dakika geçerlidir.",
+    invalidEmail: "Geçerli bir e-posta yaz.",
+    invalidLink: "Bağlantı geçersiz veya süresi dolmuş. Yeni bir tane iste.",
+    invalidCredentials: "E-posta veya şifre hatalı.",
+    emailTaken: "Bu e-posta ile zaten üyelik var. Giriş yap.",
+    weakPassword: "Şifre en az 8 karakter olmalı.",
+    passwordMismatch: "Şifreler eşleşmiyor.",
+    changePassword: "Şifre değiştir",
+    sendCode: "Kodu gönder",
+    codeLabel: "E-postadaki 6 haneli kod",
+    verifyTitle: "E-postanı doğrula",
+    verifyLead: "6 haneli kodu e-postana gönderdik.",
+    verifySubmit: "Doğrula",
+    resendCode: "Yeni kod gönder",
+    emailUnverified: "Önce e-posta adresini doğrula.",
+    invalidCode: "Kod hatalı veya süresi dolmuş.",
+    invalidLocation: "İl ve ilçe listeden seçilmeli.",
+    selectCity: "İl seçin",
+    selectDistrict: "İlçe seçin",
+    logout: "Çıkış",
+    profile: "Profil",
+    name: "Ad Soyad",
+    phone: "Telefon",
+    save: "Kaydet",
+    saved: "Kaydedildi",
+    addressTitle: "Kayıtlı teslimat adresi",
+    address: "Adres",
+    city: "İl",
+    district: "İlçe",
+    postalCode: "Posta kodu",
+    orders: "Siparişlerim",
+    noOrders: "Henüz sipariş yok.",
+    closeAccount: "Hesabı kapat",
+    closeAccountConfirm:
+      "Hesabın silinir. Sipariş kayıtları yasal süre boyunca saklanır. Devam edilsin mi?",
+    guestNote: "Üye olmadan da ödeme yapabilirsiniz."
   },
   footer: {
     brandLine:

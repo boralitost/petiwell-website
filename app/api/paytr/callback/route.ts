@@ -1,13 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyPaytrCallback } from "@/lib/paytr";
-import { decrementStock, ensureInventorySeeded } from "@/lib/inventory";
-import {
-  sendOrderPaidEmail,
-  sendPaymentFailedEmail
-} from "@/lib/email";
+import { markOrderPaid } from "@/lib/orders";
+import { sendPaymentFailedEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
+
+/** PayTR panel may probe the notify URL with GET. */
+export async function GET() {
+  return new NextResponse("OK");
+}
+
+async function readNotifyFields(req: NextRequest) {
+  const contentType = req.headers.get("content-type") || "";
+  const raw = await req.arrayBuffer();
+  const requestLike = new Request(req.url, {
+    method: "POST",
+    headers: req.headers,
+    body: raw
+  });
+
+  if (contentType.includes("multipart/form-data")) {
+    const form = await requestLike.formData();
+    return {
+      merchantOid: String(form.get("merchant_oid") || ""),
+      status: String(form.get("status") || ""),
+      totalAmount: String(form.get("total_amount") || ""),
+      hash: String(form.get("hash") || ""),
+      raw: JSON.stringify(Object.fromEntries(form.entries()))
+    };
+  }
+
+  const text = new TextDecoder().decode(raw);
+  const params = new URLSearchParams(text);
+  return {
+    merchantOid: String(params.get("merchant_oid") || ""),
+    status: String(params.get("status") || ""),
+    totalAmount: String(params.get("total_amount") || ""),
+    hash: String(params.get("hash") || ""),
+    raw: text.slice(0, 2000)
+  };
+}
 
 /**
  * PayTR server-to-server notification.
@@ -16,17 +49,20 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest) {
   try {
-    const form = await req.formData();
-    const merchantOid = String(form.get("merchant_oid") || "");
-    const status = String(form.get("status") || "");
-    const totalAmount = String(form.get("total_amount") || "");
-    const hash = String(form.get("hash") || "");
+    const fields = await readNotifyFields(req);
+    const { merchantOid, status, totalAmount, hash } = fields;
 
     if (!merchantOid || !hash) {
+      console.error("paytr callback missing fields");
       return new NextResponse("missing fields", { status: 400 });
     }
 
     if (!verifyPaytrCallback({ merchantOid, status, totalAmount, hash })) {
+      console.error("paytr callback bad hash", {
+        oidLen: merchantOid.length,
+        status,
+        amountLen: totalAmount.length
+      });
       return new NextResponse("bad hash", { status: 400 });
     }
 
@@ -36,10 +72,12 @@ export async function POST(req: NextRequest) {
     });
 
     if (!order) {
+      console.error("paytr callback order not found", {
+        oidLen: merchantOid.length
+      });
       return new NextResponse("order not found", { status: 404 });
     }
 
-    // Idempotent: already paid
     if (order.paymentStatus === "success" && order.status === "paid") {
       return new NextResponse("OK");
     }
@@ -52,7 +90,7 @@ export async function POST(req: NextRequest) {
           status: "failed",
           errorMessage: `amount_mismatch expected=${expectedKurus} got=${totalAmount}`,
           callbackAt: new Date(),
-          rawCallback: JSON.stringify(Object.fromEntries(form.entries()))
+          rawCallback: fields.raw
         }
       });
       return new NextResponse("amount mismatch", { status: 400 });
@@ -70,12 +108,12 @@ export async function POST(req: NextRequest) {
             status: "failed",
             errorMessage: status,
             callbackAt: new Date(),
-            rawCallback: JSON.stringify(Object.fromEntries(form.entries()))
+            rawCallback: fields.raw
           }
         })
       ]);
 
-      void sendPaymentFailedEmail({
+      await sendPaymentFailedEmail({
         orderNumber: order.orderNumber,
         customerName: order.customerName,
         customerEmail: order.customerEmail
@@ -84,51 +122,12 @@ export async function POST(req: NextRequest) {
       return new NextResponse("OK");
     }
 
-    await ensureInventorySeeded();
-
-    await prisma.$transaction(async (tx) => {
-      const fresh = await tx.order.findUnique({ where: { id: order.id } });
-      if (!fresh || fresh.paymentStatus === "success") return;
-
-      for (const item of order.items) {
-        await decrementStock(item.productId, item.quantity, tx);
-      }
-
-      await tx.order.update({
-        where: { id: order.id },
-        data: {
-          status: "paid",
-          paymentStatus: "success"
-        }
-      });
-
-      await tx.paymentAttempt.updateMany({
-        where: { merchantOid },
-        data: {
-          status: "success",
-          callbackAt: new Date(),
-          rawCallback: JSON.stringify(Object.fromEntries(form.entries()))
-        }
-      });
+    await prisma.paymentAttempt.updateMany({
+      where: { merchantOid },
+      data: { rawCallback: fields.raw }
     });
 
-    void sendOrderPaidEmail({
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: order.customerEmail,
-      shippingAddress: order.shippingAddress,
-      city: order.city,
-      subtotalTry: Number(order.subtotalTry),
-      shippingTry: Number(order.shippingTry),
-      totalTry: Number(order.totalTry),
-      items: order.items.map((i) => ({
-        productName: i.productName,
-        quantity: i.quantity,
-        unitPriceTry: Number(i.unitPriceTry),
-        lineTotalTry: Number(i.lineTotalTry)
-      }))
-    });
-
+    await markOrderPaid(order.id, merchantOid);
     return new NextResponse("OK");
   } catch (err) {
     console.error("paytr callback", err);

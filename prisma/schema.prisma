@@ -24,65 +24,721 @@ enum PaymentStatus {
   refunded
 }
 
+enum AmbassadorStatus {
+  INVITED
+  ONBOARDING
+  REVIEW_PENDING
+  MISSING_DOCUMENTS
+  REJECTED
+  ACTIVE_PENDING_SHIPMENT
+  ACTIVE_PENDING_FIRST_CONTENT
+  ACTIVE
+  FINAL_CONTENT_WARNING
+  PAUSED
+  TERMINATED
+}
+
+enum AmbassadorTaxType {
+  SOCIAL_CREATOR_20B
+  BUSINESS_INVOICE
+}
+
+enum AmbassadorDocumentType {
+  TAX_20B
+  TAX_CERTIFICATE
+  INVOICE_INFO
+  PAYOUT_INVOICE
+  CONTENT_DRAFT
+  OTHER
+}
+
+enum AmbassadorDocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AmbassadorConsentType {
+  AMBASSADOR_AGREEMENT
+  KVKK_NOTICE
+  CONTENT_RULES
+  CLAIMS_GUIDE
+  COMMISSION_RULES
+}
+
+enum AmbassadorConsentAction {
+  ACCEPTED
+  ACKNOWLEDGED
+}
+
+enum AmbassadorAttributionType {
+  MANUAL_COUPON
+  REFERRAL
+  NONE
+}
+
+enum AmbassadorCommissionStatus {
+  PENDING
+  APPROVED
+  CANCELLED
+  PAID
+  ADJUSTED
+  UNDER_REVIEW
+}
+
+enum AmbassadorAdjustmentReason {
+  PARTIAL_REFUND
+  FULL_REFUND_AFTER_PAYOUT
+  MANUAL_CORRECTION
+  SYSTEM_ERROR
+}
+
+enum AmbassadorPayoutStatus {
+  DRAFT
+  WAITING_DOCUMENT
+  READY
+  PAID
+  FAILED
+  HELD
+}
+
+enum AmbassadorShipmentType {
+  WELCOME_PACKAGE
+  PRODUCT_RESEND
+  OTHER
+}
+
+enum AmbassadorShipmentStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum AmbassadorContentStatus {
+  DRAFT
+  SUBMITTED
+  CHANGES_REQUESTED
+  APPROVED
+  PUBLISHED
+  REMOVAL_REQUESTED
+  REMOVED
+}
+
+enum AmbassadorFraudType {
+  SELF_PURCHASE
+  REPEATED_ADDRESS
+  REPEATED_PAYMENT_METHOD
+  ABNORMAL_REFUND_RATE
+  COUPON_SITE_LEAK
+  SUSPICIOUS_ORDER_PATTERN
+}
+
+enum AmbassadorFraudSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum AmbassadorFraudStatus {
+  OPEN
+  REVIEWING
+  RESOLVED
+  DISMISSED
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  OPERATIONS
+  FINANCE
+  CONTENT_REVIEW
+}
+
 model Order {
-  id              String        @id @default(cuid())
-  orderNumber     String        @unique
-  customerName    String
-  customerEmail   String
-  customerPhone   String
-  shippingAddress String
-  billingAddress  String
-  city            String
-  district        String        @default("")
-  postalCode      String        @default("")
-  notes           String        @default("")
-  subtotalTry     Decimal       @db.Decimal(10, 2)
-  shippingTry     Decimal       @db.Decimal(10, 2)
-  totalTry        Decimal       @db.Decimal(10, 2)
-  currency        String        @default("TRY")
-  status          OrderStatus   @default(pending_payment)
-  paymentStatus   PaymentStatus @default(pending)
-  paytrMerchantOid String?      @unique
-  trackingNumber  String?
-  distanceSalesAccepted Boolean @default(false)
-  preInfoAccepted Boolean       @default(false)
-  items           OrderItem[]
-  payments        PaymentAttempt[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id                           String                    @id @default(cuid())
+  orderNumber                  String                    @unique
+  customerName                 String
+  customerEmail                String
+  customerPhone                String
+  shippingAddress              String
+  billingAddress               String
+  city                         String
+  district                     String                    @default("")
+  postalCode                   String                    @default("")
+  notes                        String                    @default("")
+  subtotalTry                  Decimal                   @db.Decimal(10, 2)
+  shippingTry                  Decimal                   @db.Decimal(10, 2)
+  totalTry                     Decimal                   @db.Decimal(10, 2)
+  currency                     String                    @default("TRY")
+  status                       OrderStatus               @default(pending_payment)
+  paymentStatus                PaymentStatus             @default(pending)
+  paytrMerchantOid             String?                   @unique
+  trackingNumber               String?
+  paidEmailSentAt              DateTime?
+  promoCode                    String?
+  discountTry                  Decimal                   @default(0) @db.Decimal(10, 2)
+  refundedTry                  Decimal                   @default(0) @db.Decimal(10, 2)
+  productRefundedTry           Decimal                   @default(0) @db.Decimal(10, 2)
+  distanceSalesAccepted        Boolean                   @default(false)
+  preInfoAccepted              Boolean                   @default(false)
+  userId                       String?
+  user                         User?                     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ambassadorId                 String?
+  ambassador                   Ambassador?               @relation(fields: [ambassadorId], references: [id], onDelete: SetNull)
+  ambassadorCouponId           String?
+  ambassadorCoupon             AmbassadorCoupon?         @relation(fields: [ambassadorCouponId], references: [id], onDelete: SetNull)
+  ambassadorReferralId         String?
+  ambassadorReferral           AmbassadorReferral?       @relation(fields: [ambassadorReferralId], references: [id], onDelete: SetNull)
+  attributionType              AmbassadorAttributionType @default(NONE)
+  attributionSource            String?
+  commissionRateSnapshot       Decimal                   @default(0) @db.Decimal(5, 4)
+  customerDiscountRateSnapshot Decimal                   @default(0) @db.Decimal(5, 4)
+  campaignDiscountTry          Decimal                   @default(0) @db.Decimal(10, 2)
+  ambassadorDiscountTry        Decimal                   @default(0) @db.Decimal(10, 2)
+  productTotalAfterDiscountTry Decimal                   @default(0) @db.Decimal(10, 2)
+  productNetExVatTry           Decimal                   @default(0) @db.Decimal(10, 2)
+  vatRateSnapshot              Decimal                   @default(20) @db.Decimal(5, 2)
+  ambassadorCommission         AmbassadorCommission?
+  items                        OrderItem[]
+  payments                     PaymentAttempt[]
+  refunds                      RefundAttempt[]
+  createdAt                    DateTime                  @default(now())
+  updatedAt                    DateTime                  @updatedAt
+
+  @@index([userId])
+  @@index([ambassadorId])
+  @@index([ambassadorCouponId])
+  @@index([ambassadorReferralId])
+  @@index([customerEmail])
 }
 
 model OrderItem {
-  id            String  @id @default(cuid())
-  orderId       String
-  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId     String
-  sku           String
-  productName   String
-  unitPriceTry  Decimal @db.Decimal(10, 2)
-  quantity      Int
-  lineTotalTry  Decimal @db.Decimal(10, 2)
+  id                    String  @id @default(cuid())
+  orderId               String
+  order                 Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId             String
+  sku                   String
+  productName           String
+  unitPriceTry          Decimal @db.Decimal(10, 2)
+  quantity              Int
+  lineTotalTry          Decimal @db.Decimal(10, 2)
+  campaignDiscountTry   Decimal @default(0) @db.Decimal(10, 2)
+  ambassadorDiscountTry Decimal @default(0) @db.Decimal(10, 2)
+  finalProductTotalTry  Decimal @default(0) @db.Decimal(10, 2)
+  vatRateSnapshot       Decimal @default(20) @db.Decimal(5, 2)
+  netProductTry         Decimal @default(0) @db.Decimal(10, 2)
+  refundedQuantity      Int     @default(0)
+  refundedTry           Decimal @default(0) @db.Decimal(10, 2)
 }
 
 model PaymentAttempt {
-  id             String        @id @default(cuid())
-  orderId        String
-  order          Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  merchantOid    String        @unique
-  amountTry      Decimal       @db.Decimal(10, 2)
-  currency       String        @default("TRY")
-  status         PaymentStatus @default(pending)
-  errorMessage   String?
-  callbackAt     DateTime?
-  rawCallback    String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id           String        @id @default(cuid())
+  orderId      String
+  order        Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  merchantOid  String        @unique
+  amountTry    Decimal       @db.Decimal(10, 2)
+  currency     String        @default("TRY")
+  status       PaymentStatus @default(pending)
+  errorMessage String?
+  callbackAt   DateTime?
+  rawCallback  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model RefundAttempt {
+  id               String    @id @default(cuid())
+  orderId          String
+  order            Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  idempotencyKey   String    @unique
+  amountTry        Decimal   @db.Decimal(10, 2)
+  productRefundTry Decimal   @default(0) @db.Decimal(10, 2)
+  reason           String
+  status           String    @default("pending")
+  paytrResponse    String?
+  createdBy        String    @default("admin")
+  createdAt        DateTime  @default(now())
+  completedAt      DateTime?
+
+  @@index([orderId, createdAt])
 }
 
 // Mutable stock — catalog prices remain in lib/product.ts
 model ProductInventory {
-  productId String @id
+  productId String   @id
   sku       String
-  stock     Int    @default(0)
+  stock     Int      @default(0)
   updatedAt DateTime @updatedAt
+}
+
+model PromoCode {
+  code      String   @id
+  type      String
+  value     Decimal  @db.Decimal(10, 2)
+  maxUses   Int
+  usedCount Int      @default(0)
+  active    Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id              String        @id @default(cuid())
+  email           String        @unique
+  passwordHash    String        @default("")
+  emailVerifiedAt DateTime?
+  name            String        @default("")
+  phone           String        @default("")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  addresses       UserAddress[]
+  sessions        UserSession[]
+  loginTokens     LoginToken[]
+  orders          Order[]
+  ambassador      Ambassador?
+}
+
+model UserAddress {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName   String
+  phone      String
+  address    String
+  city       String
+  district   String   @default("")
+  postalCode String   @default("")
+  isDefault  Boolean  @default(true)
+  updatedAt  DateTime @updatedAt
+}
+
+model LoginToken {
+  id        String    @id @default(cuid())
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email     String
+  purpose   String    @default("reset_password")
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([email, createdAt])
+}
+
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model AmbassadorInvite {
+  id           String      @id @default(cuid())
+  tokenHash    String      @unique
+  email        String?
+  firstName    String      @default("")
+  lastName     String      @default("")
+  socialHandle String      @default("")
+  expiresAt    DateTime
+  usedAt       DateTime?
+  revokedAt    DateTime?
+  createdBy    String      @default("admin")
+  createdAt    DateTime    @default(now())
+  ambassador   Ambassador?
+
+  @@index([email, createdAt])
+  @@index([expiresAt])
+}
+
+model Ambassador {
+  id                       String                           @id @default(cuid())
+  publicId                 String                           @unique
+  userId                   String?                          @unique
+  user                     User?                            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  inviteId                 String?                          @unique
+  invite                   AmbassadorInvite?                @relation(fields: [inviteId], references: [id], onDelete: SetNull)
+  firstName                String
+  lastName                 String
+  email                    String                           @unique
+  emailVerifiedAt          DateTime?
+  phone                    String
+  birthDate                DateTime
+  shippingAddress          String
+  city                     String
+  district                 String
+  postalCode               String                           @default("")
+  country                  String                           @default("TR")
+  status                   AmbassadorStatus                 @default(ONBOARDING)
+  onboardingStep           Int                              @default(1)
+  primarySocialPlatform    String                           @default("")
+  instagramUsername        String                           @default("")
+  tiktokUsername           String                           @default("")
+  youtubeUsername          String                           @default("")
+  otherSocialUrl           String                           @default("")
+  taxType                  AmbassadorTaxType?
+  taxIdEncrypted           String?
+  taxIdLast4               String?
+  taxOffice                String?
+  businessName             String?
+  invoiceAddress           String?
+  taxStatusValid           Boolean                          @default(false)
+  taxVerifiedAt            DateTime?
+  ibanEncrypted            String?
+  ibanLast4                String?
+  ibanHolderName           String?
+  bankOwnershipConfirmedAt DateTime?
+  referralToken            String?                          @unique
+  referralActive           Boolean                          @default(false)
+  commissionRate           Decimal                          @default(0.15) @db.Decimal(5, 4)
+  customerDiscountRate     Decimal                          @default(0.10) @db.Decimal(5, 4)
+  invitedAt                DateTime                         @default(now())
+  onboardingStartedAt      DateTime?
+  onboardingCompletedAt    DateTime?
+  approvedAt               DateTime?
+  activatedAt              DateTime?
+  pausedAt                 DateTime?
+  terminatedAt             DateTime?
+  terminationRequestedAt   DateTime?
+  terminationEffectiveAt   DateTime?
+  firstContentDueAt        DateTime?
+  firstContentFinalDueAt   DateTime?
+  lastActivityAt           DateTime?
+  retentionDeleteAfter     DateTime?
+  createdAt                DateTime                         @default(now())
+  updatedAt                DateTime                         @updatedAt
+  documents                AmbassadorDocument[]
+  consents                 AmbassadorConsent[]
+  coupons                  AmbassadorCoupon[]
+  referrals                AmbassadorReferral[]
+  orders                   Order[]
+  commissions              AmbassadorCommission[]
+  adjustments              AmbassadorCommissionAdjustment[]
+  payouts                  AmbassadorPayout[]
+  shipments                AmbassadorShipment[]
+  contents                 AmbassadorContent[]
+  fraudFlags               AmbassadorFraudFlag[]
+  disputes                 AmbassadorPayoutDispute[]
+  adminNotes               AmbassadorAdminNote[]
+  auditLogs                AdminAuditLog[]
+  notifications            AmbassadorNotification[]
+
+  @@index([status, createdAt])
+  @@index([email])
+}
+
+model AmbassadorDocument {
+  id              String                   @id @default(cuid())
+  ambassadorId    String
+  ambassador      Ambassador               @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  documentType    AmbassadorDocumentType
+  storageKey      String
+  originalName    String
+  mimeType        String
+  sizeBytes       Int
+  sha256          String
+  scanStatus      String                   @default("CLEAN")
+  status          AmbassadorDocumentStatus @default(PENDING)
+  uploadedAt      DateTime                 @default(now())
+  reviewedAt      DateTime?
+  reviewedBy      String?
+  rejectionReason String?
+
+  @@index([ambassadorId, documentType])
+}
+
+model AmbassadorConsent {
+  id              String                  @id @default(cuid())
+  ambassadorId    String
+  ambassador      Ambassador              @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  documentType    AmbassadorConsentType
+  documentVersion String
+  action          AmbassadorConsentAction
+  recordedAt      DateTime                @default(now())
+  ipAddressHash   String?
+  userAgent       String?
+  documentHash    String
+
+  @@unique([ambassadorId, documentType, documentVersion])
+  @@index([ambassadorId, recordedAt])
+}
+
+model AmbassadorCoupon {
+  id              String     @id @default(cuid())
+  ambassadorId    String
+  ambassador      Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  code            String     @unique
+  discountPercent Decimal    @default(10) @db.Decimal(5, 2)
+  active          Boolean    @default(false)
+  createdAt       DateTime   @default(now())
+  disabledAt      DateTime?
+  orders          Order[]
+
+  @@index([ambassadorId, active])
+}
+
+model AmbassadorReferral {
+  id                   String     @id @default(cuid())
+  ambassadorId         String
+  ambassador           Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  anonymousVisitorHash String
+  referralToken        String
+  source               String     @default("link")
+  clickedAt            DateTime   @default(now())
+  expiresAt            DateTime
+  convertedAt          DateTime?
+  convertedOrders      Order[]
+  createdAt            DateTime   @default(now())
+
+  @@index([anonymousVisitorHash, expiresAt])
+  @@index([ambassadorId, clickedAt])
+}
+
+model AmbassadorCommission {
+  id                      String                           @id @default(cuid())
+  ambassadorId            String
+  ambassador              Ambassador                       @relation(fields: [ambassadorId], references: [id], onDelete: Restrict)
+  orderId                 String                           @unique
+  order                   Order                            @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  grossProductAmount      Decimal                          @db.Decimal(10, 2)
+  discountedProductAmount Decimal                          @db.Decimal(10, 2)
+  netProductAmountExVat   Decimal                          @db.Decimal(10, 2)
+  commissionRate          Decimal                          @db.Decimal(5, 4)
+  commissionAmount        Decimal                          @db.Decimal(10, 2)
+  status                  AmbassadorCommissionStatus       @default(PENDING)
+  eligibleAt              DateTime?
+  approvedAt              DateTime?
+  cancelledAt             DateTime?
+  paidAt                  DateTime?
+  cancellationReason      String?
+  payoutId                String?
+  payout                  AmbassadorPayout?                @relation(fields: [payoutId], references: [id], onDelete: SetNull)
+  createdAt               DateTime                         @default(now())
+  updatedAt               DateTime                         @updatedAt
+  adjustments             AmbassadorCommissionAdjustment[]
+
+  @@index([ambassadorId, status])
+  @@index([eligibleAt, status])
+  @@index([payoutId])
+}
+
+model AmbassadorCommissionAdjustment {
+  id           String                     @id @default(cuid())
+  ambassadorId String
+  ambassador   Ambassador                 @relation(fields: [ambassadorId], references: [id], onDelete: Restrict)
+  commissionId String
+  commission   AmbassadorCommission       @relation(fields: [commissionId], references: [id], onDelete: Restrict)
+  payoutId     String?
+  payout       AmbassadorPayout?          @relation(fields: [payoutId], references: [id], onDelete: SetNull)
+  amount       Decimal                    @db.Decimal(10, 2)
+  reason       AmbassadorAdjustmentReason
+  status       String                     @default("PENDING")
+  note         String?
+  createdAt    DateTime                   @default(now())
+
+  @@index([ambassadorId, createdAt])
+  @@index([commissionId])
+  @@index([payoutId])
+}
+
+model AmbassadorPayout {
+  id                      String                           @id @default(cuid())
+  ambassadorId            String
+  ambassador              Ambassador                       @relation(fields: [ambassadorId], references: [id], onDelete: Restrict)
+  periodStart             DateTime
+  periodEnd               DateTime
+  cutoffAt                DateTime
+  approvedCommissionTotal Decimal                          @db.Decimal(10, 2)
+  adjustmentsTotal        Decimal                          @default(0) @db.Decimal(10, 2)
+  netPayout               Decimal                          @db.Decimal(10, 2)
+  status                  AmbassadorPayoutStatus           @default(DRAFT)
+  scheduledFor            DateTime
+  paidAt                  DateTime?
+  bankReference           String?
+  invoiceDocumentId       String?
+  invoiceVerifiedAt       DateTime?
+  notes                   String?
+  createdAt               DateTime                         @default(now())
+  updatedAt               DateTime                         @updatedAt
+  commissions             AmbassadorCommission[]
+  adjustments             AmbassadorCommissionAdjustment[]
+  disputes                AmbassadorPayoutDispute[]
+
+  @@unique([ambassadorId, periodStart, periodEnd])
+  @@index([ambassadorId, status])
+  @@index([scheduledFor, status])
+}
+
+model AmbassadorPayoutDispute {
+  id           String           @id @default(cuid())
+  ambassadorId String
+  ambassador   Ambassador       @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  payoutId     String
+  payout       AmbassadorPayout @relation(fields: [payoutId], references: [id], onDelete: Cascade)
+  subject      String
+  description  String
+  orderNumber  String?
+  createdAt    DateTime         @default(now())
+  resolvedAt   DateTime?
+  resolution   String?
+
+  @@index([payoutId, createdAt])
+}
+
+model AmbassadorShipment {
+  id             String                   @id @default(cuid())
+  ambassadorId   String
+  ambassador     Ambassador               @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  shipmentType   AmbassadorShipmentType   @default(WELCOME_PACKAGE)
+  carrier        String                   @default("")
+  trackingNumber String                   @default("")
+  shippedAt      DateTime?
+  deliveredAt    DateTime?
+  status         AmbassadorShipmentStatus @default(PENDING)
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+
+  @@index([ambassadorId, status])
+}
+
+model AmbassadorContent {
+  id                 String                  @id @default(cuid())
+  ambassadorId       String
+  ambassador         Ambassador              @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  platform           String
+  contentType        String
+  draftStorageKey    String?
+  publishedUrl       String?
+  captionText        String?
+  status             AmbassadorContentStatus @default(DRAFT)
+  isFirstContent     Boolean                 @default(false)
+  submittedAt        DateTime?
+  reviewedAt         DateTime?
+  publishedAt        DateTime?
+  correctionDueAt    DateTime?
+  urgentRemovalDueAt DateTime?
+  reviewNotes        String?
+  productVisible     Boolean?
+  disclosurePresent  Boolean?
+  couponVisible      Boolean?
+  petiwellTagged     Boolean?
+  healthClaimsOk     Boolean?
+  productInfoOk      Boolean?
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+
+  @@index([ambassadorId, status])
+  @@index([status, correctionDueAt])
+}
+
+model AmbassadorFraudFlag {
+  id           String                  @id @default(cuid())
+  ambassadorId String
+  ambassador   Ambassador              @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  orderId      String?
+  type         AmbassadorFraudType
+  severity     AmbassadorFraudSeverity @default(MEDIUM)
+  status       AmbassadorFraudStatus   @default(OPEN)
+  notes        String?
+  createdAt    DateTime                @default(now())
+  reviewedAt   DateTime?
+  reviewedBy   String?
+
+  @@index([ambassadorId, status])
+  @@index([orderId])
+}
+
+model AmbassadorAdminNote {
+  id           String     @id @default(cuid())
+  ambassadorId String
+  ambassador   Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  note         String
+  createdBy    String     @default("admin")
+  createdAt    DateTime   @default(now())
+
+  @@index([ambassadorId, createdAt])
+}
+
+model AmbassadorNotification {
+  id           String     @id @default(cuid())
+  ambassadorId String
+  ambassador   Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  type         String
+  referenceId  String     @default("")
+  status       String     @default("sent")
+  error        String?
+  sentAt       DateTime   @default(now())
+
+  @@unique([ambassadorId, type, referenceId])
+  @@index([type, sentAt])
+}
+
+model IntegrationWebhookEvent {
+  id          String    @id @default(cuid())
+  provider    String
+  externalId  String
+  eventType   String
+  payload     Json
+  status      String    @default("received")
+  error       String?
+  receivedAt  DateTime  @default(now())
+  processedAt DateTime?
+
+  @@unique([provider, externalId])
+  @@index([provider, receivedAt])
+}
+
+model SystemConfig {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id                  String          @id @default(cuid())
+  email               String          @unique
+  passwordHash        String
+  role                AdminRole       @default(OPERATIONS)
+  totpSecretEncrypted String?
+  totpEnabledAt       DateTime?
+  active              Boolean         @default(true)
+  failedLoginCount    Int             @default(0)
+  lockedUntil         DateTime?
+  lastLoginAt         DateTime?
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  sessions            AdminSession[]
+  auditLogs           AdminAuditLog[]
+}
+
+model AdminSession {
+  id        String    @id @default(cuid())
+  adminId   String
+  admin     AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+
+  @@index([adminId, expiresAt])
+}
+
+model AdminAuditLog {
+  id            String      @id @default(cuid())
+  adminId       String      @default("admin")
+  adminUserId   String?
+  adminUser     AdminUser?  @relation(fields: [adminUserId], references: [id], onDelete: SetNull)
+  action        String
+  entityType    String
+  entityId      String
+  ambassadorId  String?
+  ambassador    Ambassador? @relation(fields: [ambassadorId], references: [id], onDelete: SetNull)
+  oldValue      Json?
+  newValue      Json?
+  ipAddressHash String?
+  createdAt     DateTime    @default(now())
+
+  @@index([entityType, entityId, createdAt])
+  @@index([ambassadorId, createdAt])
+  @@index([adminUserId, createdAt])
 }

@@ -40,6 +40,8 @@ const en = {
     about: "About",
     contact: "Contact",
     cart: "Cart",
+    account: "Account",
+    login: "Sign in",
     language: "Language"
   },
   promo: {
@@ -273,7 +275,7 @@ const en = {
         {
           id: "data",
           title: "Data processed",
-          body: "For orders and support we may process name, email, phone, shipping/billing address, order contents, and payment result (card data is handled by PayTR; not stored on this site)."
+          body: "For orders, membership (email sign-in), and support we may process name, email, phone, shipping/billing address, order contents, and payment result (card data is handled by PayTR; not stored on this site)."
         },
         {
           id: "purpose",
@@ -295,12 +297,12 @@ const en = {
     cookies: {
       title: "Cookie Policy",
       intro:
-        "We use cookies for site operation, cart experience, and (with consent) analytics.",
+        "We use cookies for site operation, cart experience, and (with consent) analytics and ads measurement.",
       sections: [
         {
           id: "types",
           title: "Types",
-          body: "Essential cookies (cart, session, security) are required. Analytics cookies are used only with consent."
+          body: "Essential cookies (cart, session, security) are required. Analytics and ads cookies (Google Analytics, Google Ads) are used only if you choose Accept all. Essential only keeps ads and analytics cookies off."
         },
         {
           id: "manage",
@@ -378,8 +380,9 @@ const en = {
   },
   cookiesBanner: {
     message:
-      "We use essential cookies. By continuing you accept our cookie policy.",
-    accept: "Accept",
+      "Essential cookies are needed for cart and secure checkout. Analytics and ads measurement (Google) need your consent.",
+    accept: "Accept all",
+    essential: "Essential only",
     learnMore: "Cookie policy"
   },
   cart: {
@@ -389,9 +392,71 @@ const en = {
     checkout: "Checkout",
     subtotal: "Subtotal",
     shipping: "Shipping",
+    discount: "Discount",
+    promoPlaceholder: "Promo code",
+    promoApply: "Apply",
+    promoRemove: "Remove",
     total: "Total",
     comingSoon:
-      "Direct site checkout is coming soon. You can buy on Trendyol for now."
+      "Direct site checkout is coming soon. You can buy on Trendyol for now.",
+    loginToPrefill: "Sign in to fill your delivery details automatically.",
+    loggedInAs: "Signed in"
+  },
+  account: {
+    title: "My account",
+    loginTitle: "Sign in",
+    registerTitle: "Create account",
+    loginLead: "Sign in with your email and password. Card details are never stored here.",
+    registerLead: "Create an account, verify your email, and save orders and your address.",
+    email: "Email",
+    password: "Password",
+    passwordConfirm: "Confirm password",
+    currentPassword: "Current password",
+    newPassword: "New password",
+    submitLogin: "Sign in",
+    submitRegister: "Create account",
+    forgotPassword: "Forgot password",
+    forgotLead: "We will email you a 6-digit code. It is valid for 10 minutes.",
+    sendReset: "Send code",
+    resetTitle: "Set a new password",
+    resetSubmit: "Save password",
+    sending: "Sending…",
+    checkInbox: "Check your inbox. The 6-digit code is valid for 10 minutes.",
+    invalidEmail: "Enter a valid email address.",
+    invalidLink: "This link is invalid or expired. Request a new one.",
+    invalidCredentials: "Email or password is incorrect.",
+    emailTaken: "An account with this email already exists. Sign in.",
+    weakPassword: "Password must be at least 8 characters.",
+    passwordMismatch: "Passwords do not match.",
+    changePassword: "Change password",
+    sendCode: "Send code",
+    codeLabel: "6-digit code from email",
+    verifyTitle: "Verify your email",
+    verifyLead: "We sent a 6-digit code to your email.",
+    verifySubmit: "Verify",
+    resendCode: "Send a new code",
+    emailUnverified: "Verify your email first.",
+    invalidCode: "The code is wrong or expired.",
+    invalidLocation: "City and district must be selected from the list.",
+    selectCity: "Select city",
+    selectDistrict: "Select district",
+    logout: "Sign out",
+    profile: "Profile",
+    name: "Full name",
+    phone: "Phone",
+    save: "Save",
+    saved: "Saved",
+    addressTitle: "Saved delivery address",
+    address: "Address",
+    city: "City",
+    district: "District",
+    postalCode: "Postal code",
+    orders: "My orders",
+    noOrders: "No orders yet.",
+    closeAccount: "Close account",
+    closeAccountConfirm:
+      "Your account will be deleted. Order records are kept for the legal retention period. Continue?",
+    guestNote: "You can also check out as a guest."
   },
   footer: {
     brandLine:

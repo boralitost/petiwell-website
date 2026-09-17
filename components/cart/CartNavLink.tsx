@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { useCart } from "@/components/cart/CartProvider";
+import { isDirectSalesEnabled } from "@/lib/commerce";
 
 type Props = {
   locale: Locale;
@@ -11,6 +12,7 @@ type Props = {
 
 export function CartNavLink({ locale, label }: Props) {
   const { count } = useCart();
+  if (!isDirectSalesEnabled()) return null;
 
   return (
     <Link

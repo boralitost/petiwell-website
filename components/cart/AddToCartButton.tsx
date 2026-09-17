@@ -4,14 +4,25 @@ import { useState } from "react";
 import { ProductId } from "@/lib/product";
 import { useCart } from "@/components/cart/CartProvider";
 import { isDirectSalesEnabled } from "@/lib/commerce";
+import { trackAddToCart } from "@/lib/analytics";
 
 type Props = {
   productId: ProductId;
   label: string;
   disabled?: boolean;
+  itemName?: string;
+  priceTry?: number;
+  sku?: string;
 };
 
-export function AddToCartButton({ productId, label, disabled }: Props) {
+export function AddToCartButton({
+  productId,
+  label,
+  disabled,
+  itemName,
+  priceTry,
+  sku
+}: Props) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
   const enabled = isDirectSalesEnabled();
@@ -24,6 +35,12 @@ export function AddToCartButton({ productId, label, disabled }: Props) {
       disabled={disabled}
       onClick={() => {
         addItem(productId, 1);
+        trackAddToCart({
+          item_id: sku || productId,
+          item_name: itemName || productId,
+          price: Number(priceTry || 0),
+          quantity: 1
+        });
         setAdded(true);
         window.setTimeout(() => setAdded(false), 1600);
       }}

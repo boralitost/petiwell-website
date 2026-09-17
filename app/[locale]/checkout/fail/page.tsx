@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Locale, isLocale } from "@/lib/i18n";
 
-type Props = { params: { locale: string }; searchParams?: { oid?: string } };
+type Props = { params: Promise<{ locale: string }>; searchParams?: Promise<{ oid?: string }> };
 
 export const metadata: Metadata = {
   title: "Ödeme başarısız | Petiwell"
 };
 
-export default function CheckoutFailPage({ params, searchParams }: Props) {
+export default async function CheckoutFailPage(props: Props) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
 
   return (

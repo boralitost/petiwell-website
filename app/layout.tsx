@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
+import { GoogleTag, GoogleTagNoscript } from "@/components/layout/GoogleTag";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -35,6 +36,8 @@ export default function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${playfair.variable} font-sans`}>
+        <GoogleTag />
+        <GoogleTagNoscript />
         {children}
       </body>
     </html>

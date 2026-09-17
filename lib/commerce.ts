@@ -10,15 +10,15 @@ export function isDirectSalesEnabled(): boolean {
 }
 
 export function getShippingFlatTry(): number {
-  const raw = process.env.SHIPPING_FLAT_TRY ?? "49.90";
+  const raw = process.env.SHIPPING_FLAT_TRY ?? "0";
   const n = Number(raw);
-  return Number.isFinite(n) && n >= 0 ? n : 49.9;
+  return Number.isFinite(n) && n >= 0 ? n : 0;
 }
 
 export function getShippingFreeOverTry(): number {
-  const raw = process.env.SHIPPING_FREE_OVER_TRY ?? "500";
+  const raw = process.env.SHIPPING_FREE_OVER_TRY ?? "0";
   const n = Number(raw);
-  return Number.isFinite(n) && n >= 0 ? n : 500;
+  return Number.isFinite(n) && n >= 0 ? n : 0;
 }
 
 export function calcShippingTry(subtotalTry: number): number {
@@ -48,10 +48,26 @@ export type PricedLine = {
   unitPriceTry: number;
   quantity: number;
   lineTotalTry: number;
+  campaignDiscountTry?: number;
+  ambassadorDiscountTry?: number;
+  finalProductTotalTry?: number;
+  vatRateSnapshot?: number;
+  netProductTry?: number;
 };
 
 export type OrderTotals = {
   subtotalTry: number;
   shippingTry: number;
+  discountTry: number;
   totalTry: number;
+  promoCode?: string | null;
+  campaignDiscountTry?: number;
+  ambassadorDiscountTry?: number;
+  productTotalAfterDiscountTry?: number;
+  productNetExVatTry?: number;
+  vatRateSnapshot?: number;
+  ambassadorPublicId?: string | null;
+  attributionType?: "MANUAL_COUPON" | "REFERRAL" | "NONE";
+  customerDiscountRateSnapshot?: number;
+  commissionRateSnapshot?: number;
 };

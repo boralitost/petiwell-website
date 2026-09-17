@@ -6,12 +6,11 @@ import { getCompanyInfo } from "@/lib/company";
 export const dynamic = "force-dynamic";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({
-  params
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
   const dict = getDictionary(locale);
 
@@ -21,7 +20,8 @@ export async function generateMetadata({
   };
 }
 
-export default function ContactPage({ params }: Props) {
+export default async function ContactPage(props: Props) {
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
   const dict = getDictionary(locale);
   const company = getCompanyInfo();

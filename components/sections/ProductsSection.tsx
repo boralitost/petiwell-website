@@ -139,6 +139,9 @@ export function ProductsSection({ locale, dict, products }: Props) {
                         productId={product.id}
                         label={dict.cart.add}
                         disabled={!product.sellableOnSite}
+                        itemName={product.shortName}
+                        priceTry={product.priceTry}
+                        sku={product.sku}
                       />
                     ) : null}
                   </div>

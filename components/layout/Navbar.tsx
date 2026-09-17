@@ -5,12 +5,13 @@ import { getDictionary } from "@/lib/dictionary";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { PromoBanner } from "./PromoBanner";
 import { CartNavLink } from "@/components/cart/CartNavLink";
+import { AccountNavLink } from "@/components/account/AccountNavLink";
 
 type Props = {
   locale: Locale;
 };
 
-export function Navbar({ locale }: Props) {
+export async function Navbar({ locale }: Props) {
   const dict = getDictionary(locale);
 
   return (
@@ -36,6 +37,7 @@ export function Navbar({ locale }: Props) {
           </Link>
           <div className="absolute right-0 flex items-center gap-3 sm:gap-4">
             <CartNavLink locale={locale} label={dict.nav.cart} />
+            <AccountNavLink locale={locale} dict={dict} />
             <LanguageSwitcher currentLocale={locale} />
           </div>
         </div>

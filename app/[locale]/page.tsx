@@ -10,10 +10,11 @@ import { FaqPreviewSection } from "@/components/sections/FaqPreviewSection";
 import { VisualStorySection } from "@/components/sections/VisualStorySection";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function HomePage({ params }: Props) {
+export default async function HomePage(props: Props) {
+  const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
   const dict = getDictionary(locale);
   const products = getProducts(locale);
