@@ -17,16 +17,6 @@ type CatalogItem = {
   sellable: boolean;
 };
 
-type SellerIdentity = {
-  legalName: string;
-  address: string;
-  city: string;
-  phone: string;
-  email: string;
-  taxOffice: string;
-  taxNumber: string;
-};
-
 type Props = {
   locale: Locale;
   dict: Dictionary;
@@ -34,7 +24,6 @@ type Props = {
   shippingFlatTry: number;
   shippingFreeOverTry: number;
   paytrTestMode: boolean;
-  seller: SellerIdentity;
   account?: {
     email: string;
     name: string;
@@ -100,7 +89,6 @@ export function CheckoutShell({
   shippingFlatTry,
   shippingFreeOverTry,
   paytrTestMode,
-  seller,
   account
 }: Props) {
   const { items, setQuantity, removeItem, count } = useCart();
@@ -442,14 +430,6 @@ export function CheckoutShell({
           </fieldset>
 
           <fieldset className="space-y-3 rounded-2xl border border-line bg-surface p-5 text-sm">
-            <div className="rounded-xl bg-cream/60 px-3 py-3 text-xs leading-relaxed text-muted">
-              <p className="font-semibold text-charcoal">
-                {locale === "en" ? "Seller" : "Satıcı"}
-              </p>
-              <p className="mt-1 whitespace-pre-line">
-                {`${seller.legalName}\n${seller.address}, ${seller.city}\n${seller.phone} · ${seller.email}\n${seller.taxOffice} / ${seller.taxNumber}`}
-              </p>
-            </div>
             <label className="flex items-start gap-2">
               <input name="preInfoAccepted" type="checkbox" required className="mt-1" />
               <span>
