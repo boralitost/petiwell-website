@@ -106,6 +106,7 @@ export function CheckoutShell({
   const [serverTotals, setServerTotals] = useState<{
     shippingTry: number;
     discountTry: number;
+    campaignDiscountTry: number;
     totalTry: number;
     promoCode?: string | null;
   } | null>(null);
@@ -174,6 +175,7 @@ export function CheckoutShell({
     setServerTotals({
       shippingTry: Number(data.totals.shippingTry || 0),
       discountTry: Number(data.totals.discountTry || 0),
+      campaignDiscountTry: Number(data.totals.campaignDiscountTry || 0),
       totalTry: Number(data.totals.totalTry || 0),
       promoCode: data.totals.promoCode || null
     });
@@ -222,6 +224,7 @@ export function CheckoutShell({
         setServerTotals({
           shippingTry: Number(data.totals.shippingTry || 0),
           discountTry: Number(data.totals.discountTry || 0),
+          campaignDiscountTry: Number(data.totals.campaignDiscountTry || 0),
           totalTry: Number(data.totals.totalTry || 0),
           promoCode: data.totals.promoCode || null
         });
@@ -584,7 +587,14 @@ export function CheckoutShell({
               <span>{dict.cart.shipping}</span>
               <span>{formatTry(shipping, loc)}</span>
             </div>
-            {serverTotals && serverTotals.discountTry > 0 ? (
+            {serverTotals && serverTotals.campaignDiscountTry > 0 ? (
+              <div className="flex justify-between text-brand">
+                <span>{dict.cart.campaignDiscount}</span>
+                <span>−{formatTry(serverTotals.campaignDiscountTry, loc)}</span>
+              </div>
+            ) : null}
+            {serverTotals &&
+            serverTotals.discountTry - serverTotals.campaignDiscountTry > 0.009 ? (
               <div className="flex justify-between text-brand">
                 <span>
                   {dict.cart.discount}
@@ -592,7 +602,13 @@ export function CheckoutShell({
                     ? ` (${serverTotals.promoCode})`
                     : ""}
                 </span>
-                <span>−{formatTry(serverTotals.discountTry, loc)}</span>
+                <span>
+                  −
+                  {formatTry(
+                    serverTotals.discountTry - serverTotals.campaignDiscountTry,
+                    loc
+                  )}
+                </span>
               </div>
             ) : null}
             <div className="flex justify-between text-base font-semibold">

@@ -59,7 +59,7 @@ const tr = {
     title: "Kedinizin günlük bakımına iki net çözüm.",
     subtitle:
       "Plus + B tüy ve deri bakımını destekler; Sterile Paste ise yalanma sırasında yutulan tüylerin oluşturduğu tüy yumağı bakımına odaklanır.",
-    promoNote: "Trendyol’da kampanya koşulları kapsamında 2. ürün 1 TL.",
+    promoNote: "petiwell.com’da kampanya koşulları kapsamında 2. ürün 1 TL.",
     primaryCta: "Ürünleri Keşfet",
     secondaryCta: "Kullanım"
   },
@@ -70,14 +70,14 @@ const tr = {
       "Plus + B tüy ve deri bakımına; Sterile Paste ise tüy yumağı bakımına odaklanır.",
     promoNote: "Her iki üründe de 2. ürün 1 TL*",
     promoDisclaimer:
-      "*Trendyol’da ve kampanya koşulları kapsamında geçerlidir.",
+      "*petiwell.com sepetinde geçerlidir. Sepetteki her ikinci ürün 1 TL’ye düşer; stok ve süre ile sınırlıdır.",
     complementaryTitle: "Biri tüyün kendisine, diğeri yutulan tüylere odaklanır.",
     complementaryBody:
       "Plus + B tüy ve deri bakımını destekler. Sterile Paste ise kedinizin kendini temizlerken yuttuğu tüylerin oluşturduğu tüy yumağı bakımına odaklanır.",
     complementaryNote: "Bu nedenle iki ürün birbirinin alternatifi değildir.",
-    priceHint: "Güncel fiyatı Trendyol’da gör",
-    buyCta: "Trendyol’da Satın Al",
-    buyUnavailable: "Trendyol linki yakında eklenecek",
+    priceHint: "Fiyat KDV dâhildir.",
+    buyCta: "Sepete ekle",
+    buyUnavailable: "Şu an stokta yok",
     viewProduct: "Ürünü İncele"
   },
   trust: {
@@ -104,7 +104,7 @@ const tr = {
       {
         id: "channel",
         title: "Resmî satış kanalı",
-        description: "Satın alma işlemleri Trendyol üzerinden gerçekleştirilir."
+        description: "Satın alma işlemleri petiwell.com üzerinden gerçekleştirilir."
       }
     ],
     cta: "Ürünleri Keşfet"
@@ -122,28 +122,28 @@ const tr = {
     eyebrow: "KAMPANYA",
     title: "2. ürün 1 TL kampanyası nasıl çalışıyor?",
     subtitle:
-      "Kampanya Trendyol üzerinden ve ilgili kampanya koşulları kapsamında uygulanır.",
+      "Kampanya petiwell.com sepetinde otomatik uygulanır. Sepetteki her ikinci ürün 1 TL’dir.",
     steps: [
       {
         id: "choose",
         title: "Ürününü seç",
-        description: "Petiwell ürününü Trendyol’da görüntüle."
+        description: "Plus + B veya Sterile Paste’i sepete ekle."
       },
       {
         id: "check",
-        title: "Kampanya koşullarını kontrol et",
+        title: "İki veya daha fazla ürün ekle",
         description:
-          "Geçerli ürün ve sepet koşullarını Trendyol ürün sayfasından incele."
+          "Aynı üründen iki adet veya iki farklı üründen birer adet yeterlidir."
       },
       {
         id: "cart",
         title: "Sepette avantajı gör",
         description:
-          "Kampanya geçerliyse avantaj ödeme öncesinde sepette uygulanır."
+          "Daha uygun birim fiyatlı ürün 1 TL’ye düşer; fark ödeme öncesinde indirim olarak görünür."
       }
     ],
     footnote:
-      "*Kampanya koşulları, geçerli ürünler, süre ve stok durumu Trendyol’daki güncel koşullara göre değişebilir.",
+      "*Kampanya stok ve süre ile sınırlıdır. Elçi kuponu varsa önce 2. ürün 1 TL, sonra Elçi indirimi uygulanır.",
     cta: "Ürünleri Keşfet"
   },
   visualStory: {
@@ -173,7 +173,7 @@ const tr = {
         id: "campaign",
         question: "2. ürün 1 TL kampanyası nasıl çalışıyor?",
         answer:
-          "Kampanya Trendyol üzerinden ve ilgili kampanya koşulları kapsamında uygulanır. Geçerli ürünler, süre ve sepet koşulları Trendyol ürün sayfasındaki güncel bilgilere göre değişebilir."
+          "petiwell.com sepetinde her ikinci ürün 1 TL’dir. Aynı üründen iki adet veya iki farklı üründen birer adet eklediğinizde daha uygun birim fiyatlı ürün 1 TL’ye düşer. Stok ve süre ile sınırlıdır."
       },
       {
         id: "medicine",
@@ -191,7 +191,7 @@ const tr = {
         id: "purchase",
         question: "Nereden satın alabilirim?",
         answer:
-          "Satın alma işlemleri Trendyol üzerinden gerçekleştirilir. Bu site ürünleri tanımanıza yardımcı olur ve sizi ilgili Trendyol ürün sayfasına yönlendirir."
+          "Satın alma işlemleri petiwell.com üzerinden, PayTR ile tamamlanır."
       },
       {
         id: "storage",
@@ -229,7 +229,7 @@ const tr = {
       "Petiwell, tek ürüne indirgenmiş bir marka değildir. Plus + B tüy ve deri bakımı için; Sterile Paste ise tüy yumağı bakımı için konumlanır.",
       "Plus + B damlalıklı vitamin formatındadır. Sterile Paste malt macunu formatındadır ve özellikle kısırlaştırılmış kedilerin günlük kullanımına yöneliktir.",
       "Marka dili yumuşak, premium ve abartısızdır. Amacımız ürünün ne işe yaradığını sade ve anlaşılır biçimde anlatmaktır.",
-      "Satın alma; site üzerinden (aktif olduğunda) veya Trendyol mağazamız üzerinden gerçekleştirilebilir."
+      "Satın alma petiwell.com üzerinden PayTR ile gerçekleştirilir."
     ]
   },
   legal: {
@@ -248,12 +248,12 @@ const tr = {
       {
         id: "channel",
         title: "Satış kanalları",
-        body: "Ürünler Trendyol üzerinden ve site üzerinden doğrudan satış (PayTR ile, aktif olduğunda) sunulabilir. Fiyat, stok ve kargo koşulları ilgili satış kanalındaki güncel bilgilere tabidir."
+        body: "Ürünler petiwell.com üzerinden PayTR ile satılır. Fiyat, stok ve kargo koşulları sitedeki güncel bilgilere tabidir."
       },
       {
         id: "price",
         title: "Fiyat ve kampanya bilgisi",
-        body: "Sitede görünen kampanya mesajları bilgilendirme amaçlıdır. Trendyol kampanyaları Trendyol’daki güncel kurallara göre değişebilir. Site fiyatları KDV dâhil listelenir (ayrıca belirtilmedikçe)."
+        body: "2. ürün 1 TL kampanyası petiwell.com sepetinde otomatik uygulanır. Site fiyatları aksi belirtilmedikçe KDV dâhildir."
       },
       {
         id: "ip",
@@ -315,7 +315,7 @@ const tr = {
     shipping: {
       title: "Teslimat ve İade Koşulları",
       intro:
-        "Bu koşullar petiwell.com üzerinden verilen mesafeli satış siparişleri için geçerlidir. Trendyol siparişlerinde Trendyol kuralları uygulanır.",
+        "Bu koşullar petiwell.com üzerinden verilen mesafeli satış siparişleri için geçerlidir.",
       sections: [
         {
           id: "delivery",
@@ -398,7 +398,8 @@ const tr = {
     promoApply: "Uygula",
     promoRemove: "Kaldır",
     total: "Toplam",
-    comingSoon: "Site üzerinden satış yakında aktif olacak. Şimdilik Trendyol’dan satın alabilirsiniz.",
+    comingSoon: "Site üzerinden satış yakında aktif olacak.",
+    campaignDiscount: "2. ürün 1 TL",
     loginToPrefill: "Giriş yap, teslimat bilgilerin otomatik dolsun.",
     loggedInAs: "Giriş yapıldı"
   },
@@ -480,8 +481,8 @@ const tr = {
     }
   },
   purchase: {
-    note: "Satın alma işlemini Trendyol üzerinde tamamlayacaksınız.",
-    unavailableNote: "Gerçek ürün linki eklendiğinde bu buton aktif olur.",
+    note: "Satın alma işlemini petiwell.com üzerinde tamamlayacaksınız.",
+    unavailableNote: "Bu ürün şu an satışa kapalı.",
     siteBuy: "Site üzerinden satın al"
   }
 };

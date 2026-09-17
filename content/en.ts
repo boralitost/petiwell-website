@@ -59,7 +59,7 @@ const en = {
     title: "Two clear solutions for your cat’s daily care.",
     subtitle:
       "Plus + B supports coat and skin care; Sterile Paste focuses on hairball care related to the hair cats swallow while grooming.",
-    promoNote: "On Trendyol, under campaign terms, the 2nd product is 1 TL.",
+    promoNote: "On petiwell.com, under campaign terms, the 2nd product is 1 TL.",
     primaryCta: "Explore Products",
     secondaryCta: "How to Use"
   },
@@ -69,14 +69,15 @@ const en = {
     subtitle:
       "Plus + B focuses on coat and skin care; Sterile Paste focuses on hairball care.",
     promoNote: "On both products, the 2nd product is 1 TL*",
-    promoDisclaimer: "*Valid on Trendyol and under campaign terms.",
+    promoDisclaimer:
+      "*Applies in the petiwell.com cart. Every second item drops to 1 TL, limited by stock and term.",
     complementaryTitle: "One focuses on the coat itself; the other on swallowed hair.",
     complementaryBody:
       "Plus + B supports coat and skin care. Sterile Paste focuses on hairball care related to the hair your cat swallows while grooming.",
     complementaryNote: "That is why the two products are not alternatives to each other.",
-    priceHint: "See current price on Trendyol",
-    buyCta: "Buy on Trendyol",
-    buyUnavailable: "Trendyol link coming soon",
+    priceHint: "Price includes VAT.",
+    buyCta: "Add to cart",
+    buyUnavailable: "Currently out of stock",
     viewProduct: "View Product"
   },
   trust: {
@@ -103,7 +104,7 @@ const en = {
       {
         id: "channel",
         title: "Official sales channel",
-        description: "Purchases are completed on Trendyol."
+        description: "Purchases are completed on petiwell.com."
       }
     ],
     cta: "Explore Products"
@@ -121,28 +122,28 @@ const en = {
     eyebrow: "OFFER",
     title: "How does the 2nd product for 1 TL offer work?",
     subtitle:
-      "The offer is applied on Trendyol under the relevant campaign terms.",
+      "The offer is applied automatically in the petiwell.com cart. Every second item is 1 TL.",
     steps: [
       {
         id: "choose",
         title: "Choose your product",
-        description: "View the Petiwell product on Trendyol."
+        description: "Add Plus + B or Sterile Paste to the cart."
       },
       {
         id: "check",
-        title: "Check campaign terms",
+        title: "Add two or more items",
         description:
-          "Review eligible products and cart conditions on the Trendyol product page."
+          "Two of the same product or one of each is enough."
       },
       {
         id: "cart",
         title: "See the benefit in cart",
         description:
-          "If the offer applies, the benefit is shown in cart before payment."
+          "The cheaper unit drops to 1 TL; the difference appears as a discount before payment."
       }
     ],
     footnote:
-      "*Campaign terms, eligible products, timing, and stock availability may change based on current Trendyol conditions.",
+      "*Limited by stock and term. If an Ambassador coupon applies, the 2nd-product offer is applied first.",
     cta: "Explore Products"
   },
   visualStory: {
@@ -172,7 +173,7 @@ const en = {
         id: "campaign",
         question: "How does the 2nd product for 1 TL offer work?",
         answer:
-          "The offer runs on Trendyol under relevant campaign terms. Eligible products, timing, and cart conditions can change based on the current Trendyol product page."
+          "In the petiwell.com cart, every second item is 1 TL. Two of the same product or one of each drops the cheaper unit to 1 TL. Limited by stock and term."
       },
       {
         id: "medicine",
@@ -190,7 +191,7 @@ const en = {
         id: "purchase",
         question: "Where can I buy?",
         answer:
-          "Purchases are completed on Trendyol. This site helps you understand the products and directs you to the relevant Trendyol product page."
+          "Purchases are completed on petiwell.com via PayTR."
       },
       {
         id: "storage",
@@ -228,7 +229,7 @@ const en = {
       "Petiwell is not a single-product brand. Plus + B is positioned for coat and skin care; Sterile Paste is positioned for hairball care.",
       "Plus + B comes in a dropper vitamin format. Sterile Paste is a malt paste format, positioned especially for sterilized cats’ everyday use.",
       "Our brand voice is soft, premium, and restrained. We aim to explain what each product is for in a clear way.",
-      "Purchases may be completed on this site (when enabled) or via our Trendyol store."
+      "Purchases are completed on petiwell.com via PayTR."
     ]
   },
   legal: {
@@ -247,12 +248,12 @@ const en = {
       {
         id: "channel",
         title: "Sales channels",
-        body: "Products may be sold on Trendyol and directly on this site via PayTR (when enabled). Price, stock, and shipping follow the active sales channel."
+        body: "Products are sold on petiwell.com via PayTR. Price, stock, and shipping follow the current site listing."
       },
       {
         id: "price",
         title: "Price and campaign information",
-        body: "Campaign messages on this site are informational. Trendyol campaigns follow Trendyol rules. Site prices are listed VAT-inclusive unless stated otherwise."
+        body: "The 2nd-product 1 TL offer is applied automatically in the petiwell.com cart. Site prices include VAT unless stated otherwise."
       },
       {
         id: "ip",
@@ -314,7 +315,7 @@ const en = {
     shipping: {
       title: "Delivery & Returns",
       intro:
-        "These terms apply to distance-sales orders on petiwell.com. Trendyol orders follow Trendyol rules.",
+        "These terms apply to distance-sales orders on petiwell.com.",
       sections: [
         {
           id: "delivery",
@@ -397,8 +398,8 @@ const en = {
     promoApply: "Apply",
     promoRemove: "Remove",
     total: "Total",
-    comingSoon:
-      "Direct site checkout is coming soon. You can buy on Trendyol for now.",
+    comingSoon: "Direct site checkout is coming soon.",
+    campaignDiscount: "2nd product 1 TL",
     loginToPrefill: "Sign in to fill your delivery details automatically.",
     loggedInAs: "Signed in"
   },
@@ -480,8 +481,8 @@ const en = {
     }
   },
   purchase: {
-    note: "You will complete your purchase on Trendyol.",
-    unavailableNote: "This button activates when the real product link is added.",
+    note: "You will complete your purchase on petiwell.com.",
+    unavailableNote: "This product is not on sale right now.",
     siteBuy: "Buy on this site"
   }
 };

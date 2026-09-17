@@ -103,7 +103,7 @@ function turkishPolicies(): Record<ConsumerPolicyKey, PolicyDoc> {
         {
           id: "channel",
           title: "Satış kanalları",
-          body: "Ürünler petiwell.com üzerinden (aktif olduğunda PayTR ile) ve Trendyol mağazası üzerinden satılabilir. Trendyol siparişlerinde aracı platformun sözleşme, teslimat, cayma ve iade kuralları uygulanır. Fiyat, stok ve kargo koşulları ilgili kanalın güncel bilgisine tabidir."
+          body: "Ürünler petiwell.com üzerinden PayTR ile satılır. Fiyat, stok ve kargo koşulları sitedeki güncel listeye tabidir."
         },
         {
           id: "price",
@@ -208,7 +208,7 @@ function turkishPolicies(): Record<ConsumerPolicyKey, PolicyDoc> {
     },
     shipping: {
       title: "Teslimat, Cayma ve İade Koşulları",
-      intro: `Bu koşullar ${origin} üzerinden kurulan mesafeli satışlara uygulanır. Trendyol siparişlerinde Trendyol ve satıcı mağaza kuralları geçerlidir.`,
+      intro: `Bu koşullar ${origin} üzerinden kurulan mesafeli satışlara uygulanır.`,
       lastUpdated: updated,
       sections: [
         {
@@ -410,7 +410,7 @@ function englishPolicies(): Record<ConsumerPolicyKey, PolicyDoc> {
         {
           id: "channel",
           title: "Sales channels",
-          body: "Products may be sold on petiwell.com (PayTR, when enabled) and on Trendyol. Trendyol orders follow that marketplace’s contract, delivery and return rules."
+          body: "Products are sold on petiwell.com via PayTR. Price, stock and shipping follow the current site listing."
         },
         {
           id: "price",
@@ -515,7 +515,7 @@ function englishPolicies(): Record<ConsumerPolicyKey, PolicyDoc> {
     },
     shipping: {
       title: "Delivery, Withdrawal & Returns",
-      intro: `These terms apply to distance contracts on ${origin}. Trendyol orders follow Trendyol rules.`,
+      intro: `These terms apply to distance contracts on ${origin}.`,
       lastUpdated: updated,
       sections: [
         {

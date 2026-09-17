@@ -15,7 +15,7 @@ Program `2026-09-17` metinleriyle açıktır. Davet için avukat veya mali müş
 
 - Attribution: geçerli manuel Elçi kodu > son geçerli 30 günlük referral > attribution yok.
 - Genel kampanya kodu ile Elçi referral'ı birlikte kullanılmaz.
-- Site-geneli ikinci ürün 1 TL kampanyası yalnızca `SECOND_PRODUCT_ONE_TRY_ENABLED=true` iken çalışır.
+- Site-geneli ikinci ürün 1 TL kampanyası açıktır; kapatmak için `SECOND_PRODUCT_ONE_TRY_ENABLED=0`.
 - Sıra: katalog ürün toplamı → ikinci ürün kampanyası → Elçi indirimi → KDV ayrıştırma → komisyon.
 - Komisyon: kargo hariç, tüm ürün indirimlerinden sonraki KDV hariç ürün bedeli × sipariş snapshot oranı.
 - Komisyon ödeme başarılı olunca `PENDING`, teslimattan sonraki bekleme süresi bitince `APPROVED` olur.

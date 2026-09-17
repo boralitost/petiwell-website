@@ -1,4 +1,9 @@
-import { calcShippingTry, OrderTotals, PricedLine } from "@/lib/commerce";
+import {
+  calcShippingTry,
+  isSecondProductCampaignEnabled,
+  OrderTotals,
+  PricedLine
+} from "@/lib/commerce";
 import { getCatalogProduct } from "@/lib/product";
 import { getStock } from "@/lib/inventory";
 import { Locale } from "@/lib/i18n";
@@ -139,7 +144,7 @@ export async function quoteCart(
     ambassadorCoupon?.ambassador || referral?.ambassador || null;
   const config = ambassadorConfig();
   const automaticCampaign =
-    process.env.SECOND_PRODUCT_ONE_TRY_ENABLED === "true";
+    isSecondProductCampaignEnabled();
 
   let generalPromo: ReturnType<typeof findPromoDefinition> = null;
   if (requested && !ambassadorCoupon) {

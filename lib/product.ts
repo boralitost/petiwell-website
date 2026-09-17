@@ -28,8 +28,6 @@ export interface Product {
     title: LocalizedField;
     description: LocalizedField;
   }[];
-  /** Empty string until real product URL is provided — never fake a PDP. */
-  trendyolUrl: string;
   images: string[];
   campaignEligible: boolean;
   promoLabel: LocalizedField;
@@ -40,16 +38,6 @@ export interface Product {
   priceTry: number;
   stock: number;
 }
-
-/**
- * Update Trendyol product page URLs here only.
- */
-export const TRENDYOL_URLS: Record<ProductId, string> = {
-  "plus-b":
-    "https://www.trendyol.com/petiwell/plus-b-tuy-dokulmesi-onleyici-kedi-vitamini-50-ml-p-1167315376?boutiqueId=61&merchantId=1293158&filterOverPriceListings=false&sav=true",
-  "sterile-paste":
-    "https://www.trendyol.com/petiwell/tuy-dokulme-engelleyici-tuy-yumagi-ve-kusma-onleyici-multivitamin-kedi-malt-macun-100-gr-p-1167309791?boutiqueId=61&merchantId=1293158&filterOverPriceListings=false&sav=true"
-};
 
 const products: Product[] = [
   {
@@ -141,7 +129,6 @@ const products: Product[] = [
         }
       }
     ],
-    trendyolUrl: TRENDYOL_URLS["plus-b"],
     images: [
       "/plus-b/1.png",
       "/plus-b/2.png",
@@ -251,7 +238,6 @@ const products: Product[] = [
         }
       }
     ],
-    trendyolUrl: TRENDYOL_URLS["sterile-paste"],
     images: [
       "/sterile-paste/1.png",
       "/sterile-paste/2.png",
@@ -288,8 +274,6 @@ export function getProduct(locale: Locale, id: ProductId) {
 }
 
 function localizeProduct(product: Product, locale: Locale) {
-  const trendyolUrl = TRENDYOL_URLS[product.id] || product.trendyolUrl;
-
   return {
     id: product.id,
     slug: product.slug,
@@ -313,8 +297,6 @@ function localizeProduct(product: Product, locale: Locale) {
     })),
     image: product.images[0],
     images: product.images,
-    trendyolUrl,
-    hasTrendyolUrl: Boolean(trendyolUrl),
     campaignEligible: product.campaignEligible,
     promoLabel: product.promoLabel[locale],
     accent: product.accent,

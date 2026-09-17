@@ -4,11 +4,9 @@ import { useEffect, useRef } from "react";
 import { Dictionary } from "@/lib/dictionary";
 import { Locale } from "@/lib/i18n";
 import { LocalizedProduct } from "@/lib/product";
-import { PurchaseButton } from "@/components/shared/PurchaseButton";
 import { ProductGallery } from "@/components/shared/ProductGallery";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
-import { isDirectSalesEnabled } from "@/lib/commerce";
 
 type Props = {
   locale: Locale;
@@ -115,35 +113,14 @@ export function ProductsSection({ locale, dict, products }: Props) {
                         {dict.products.priceHint}
                       </p>
                     )}
-                    <PurchaseButton
-                      label={
-                        product.hasTrendyolUrl
-                          ? dict.products.buyCta
-                          : dict.products.buyUnavailable
-                      }
-                      href={product.trendyolUrl}
+                    <AddToCartButton
                       productId={product.id}
-                      productName={product.name}
-                      note={
-                        product.hasTrendyolUrl
-                          ? dict.purchase.note
-                          : undefined
-                      }
-                      unavailableNote={dict.purchase.unavailableNote}
-                      placement="products_card"
-                      locale={locale}
-                      fullWidth
+                      label={dict.cart.add}
+                      disabled={!product.sellableOnSite}
+                      itemName={product.shortName}
+                      priceTry={product.priceTry}
+                      sku={product.sku}
                     />
-                    {isDirectSalesEnabled() ? (
-                      <AddToCartButton
-                        productId={product.id}
-                        label={dict.cart.add}
-                        disabled={!product.sellableOnSite}
-                        itemName={product.shortName}
-                        priceTry={product.priceTry}
-                        sku={product.sku}
-                      />
-                    ) : null}
                   </div>
                 </div>
               </article>

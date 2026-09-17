@@ -5,7 +5,8 @@ import { test } from "node:test";
 import {
   calcShippingTry,
   getShippingFlatTry,
-  isDirectSalesEnabled
+  isDirectSalesEnabled,
+  isSecondProductCampaignEnabled
 } from "../lib/commerce";
 import {
   generateOrderNumber,
@@ -14,6 +15,18 @@ import {
 import { resolveEmailFrom, DEFAULT_EMAIL_FROM, resolveShopNotify, DEFAULT_SHOP_NOTIFY } from "../lib/email-from";
 import { tryToKurus, verifyPaytrCallback, formatPaytrRefundAmount, paytrRefundToken, paytrReportedAmountMatches } from "../lib/paytr";
 import { paytrRefundReference } from "../lib/refunds";
+
+test("second-product campaign is on unless explicitly 0", () => {
+  const previous = process.env.SECOND_PRODUCT_ONE_TRY_ENABLED;
+  delete process.env.SECOND_PRODUCT_ONE_TRY_ENABLED;
+  assert.equal(isSecondProductCampaignEnabled(), true);
+  process.env.SECOND_PRODUCT_ONE_TRY_ENABLED = "false";
+  assert.equal(isSecondProductCampaignEnabled(), true);
+  process.env.SECOND_PRODUCT_ONE_TRY_ENABLED = "0";
+  assert.equal(isSecondProductCampaignEnabled(), false);
+  if (previous === undefined) delete process.env.SECOND_PRODUCT_ONE_TRY_ENABLED;
+  else process.env.SECOND_PRODUCT_ONE_TRY_ENABLED = previous;
+});
 
 test("sales flag is off unless explicitly true", () => {
   const previous = process.env.NEXT_PUBLIC_DIRECT_SALES_ENABLED;

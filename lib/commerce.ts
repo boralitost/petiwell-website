@@ -9,6 +9,11 @@ export function isDirectSalesEnabled(): boolean {
   return process.env.NEXT_PUBLIC_DIRECT_SALES_ENABLED === "true";
 }
 
+/** Every second eligible unit is 1 TRY. Off only with SECOND_PRODUCT_ONE_TRY_ENABLED=0. */
+export function isSecondProductCampaignEnabled(): boolean {
+  return process.env.SECOND_PRODUCT_ONE_TRY_ENABLED !== "0";
+}
+
 export function getShippingFlatTry(): number {
   const raw = process.env.SHIPPING_FLAT_TRY ?? "0";
   const n = Number(raw);

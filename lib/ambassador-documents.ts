@@ -62,7 +62,7 @@ Madde 3 — Konu ve kapsam
 3.1. Petiwell, davet ettiği Elçiye kişiye özel kupon kodu ve/veya referral bağlantısı, başlangıç ürün paketi ve program kurallarını sağlayabilir.
 3.2. Başlangıç paketi iki Petiwell ürünü, bilgilendirme kartı, kupon ve QR kod içerebilir. Paket, tanıtım amaçlı bedelsiz veya indirimli mal temini olup ücret/maaş değildir.
 3.3. Elçi, paketin tesliminden itibaren ${firstContentDays} gün içinde en az bir kalıcı içerik yayımlamayı ve ilk içeriği yayımdan önce Petiwell incelemesine sunmayı kabul eder. İlk içerikten sonra aylık zorunlu paylaşım kotası yoktur; ancak içerik ve iddia kuralları süreklidir.
-3.4. Program yalnızca petiwell.com satışlarını kapsar. Trendyol ve diğer pazaryerleri komisyon dışıdır.
+3.4. Program yalnızca petiwell.com satışlarını kapsar. Diğer satış kanalları ve pazaryerleri komisyon dışıdır.
 
 Madde 4 — Elçinin yükümlülükleri
 4.1. 18 yaşını doldurmuş olmak; kimlik, iletişim, teslimat, vergi ve banka bilgilerini doğru, güncel ve kendisine ait olarak vermek.
@@ -214,7 +214,7 @@ Aşağıdakiler ve eşdeğerleri yasaktır:
 1. İndirim ve attribution
 Aktif Elçi kodu, müşteriye sipariş anındaki snapshot oranıyla varsayılan %${discountPct} ürün indirimi sağlar (kargo ve KDV kuralları saklı).
 Attribution sırası: (1) ödeme adımında girilen geçerli Elçi kodu, (2) son geçerli referral bağlantısı (${referralDays} gün, yalnızca uygun çerez izni varsa), (3) attribution yok.
-Genel kampanya kodu ile Elçi referral’ı birleştirilemez. Trendyol ve diğer kanallar kapsamaz.
+Genel kampanya kodu ile Elçi referral’ı birleştirilemez. petiwell.com dışı kanallar kapsamaz.
 
 2. Komisyon matrahı
 Komisyon, tüm ürün indirimlerinden sonra kalan, kargo hariç, KDV hariç net ürün bedeli üzerinden hesaplanır. Varsayılan oran %${commissionPct}’tir. Oran ve matrah sipariş anında snapshot olarak saklanır; sonradan oran değişikliği geçmiş siparişleri değiştirmez.
