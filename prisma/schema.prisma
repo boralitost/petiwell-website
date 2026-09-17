@@ -181,6 +181,9 @@ model Order {
   productRefundedTry           Decimal                   @default(0) @db.Decimal(10, 2)
   distanceSalesAccepted        Boolean                   @default(false)
   preInfoAccepted              Boolean                   @default(false)
+  privacyAccepted              Boolean                   @default(false)
+  consumerLegalVersion         String?
+  consumerLegalHash            String?
   userId                       String?
   user                         User?                     @relation(fields: [userId], references: [id], onDelete: SetNull)
   ambassadorId                 String?

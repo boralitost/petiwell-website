@@ -16,6 +16,7 @@ import { isValidTrLocation } from "@/lib/tr-locations";
 import { orderToGa4Purchase, sendGa4Purchase } from "@/lib/ga4-mp";
 import { normalizeTrPhone } from "@/lib/ambassador-security";
 import { evaluateAmbassadorOrderFraud } from "@/lib/ambassador-fraud";
+import { getConsumerLegalSnapshot } from "@/lib/legal-consumer";
 
 export {
   generateMerchantOid,
@@ -35,6 +36,7 @@ export type CheckoutCustomerInput = {
   notes?: string;
   distanceSalesAccepted: boolean;
   preInfoAccepted: boolean;
+  privacyAccepted: boolean;
   locale?: Locale;
   items: QuoteLineInput[];
   promoCode?: string;
@@ -49,7 +51,11 @@ export async function createPendingOrder(input: CheckoutCustomerInput) {
   if (!isCompanyInfoComplete()) {
     return { ok: false as const, error: "company_incomplete" };
   }
-  if (!input.distanceSalesAccepted || !input.preInfoAccepted) {
+  if (
+    !input.distanceSalesAccepted ||
+    !input.preInfoAccepted ||
+    !input.privacyAccepted
+  ) {
     return { ok: false as const, error: "legal_not_accepted" };
   }
   if (!isValidTrLocation(input.city.trim(), (input.district || "").trim())) {
@@ -57,6 +63,7 @@ export async function createPendingOrder(input: CheckoutCustomerInput) {
   }
 
   const locale = input.locale ?? "tr";
+  const consumerLegal = getConsumerLegalSnapshot(locale);
   const quote = await quoteCart(
     input.items,
     locale,
@@ -130,6 +137,9 @@ export async function createPendingOrder(input: CheckoutCustomerInput) {
           userId: input.userId || null,
           distanceSalesAccepted: true,
           preInfoAccepted: true,
+          privacyAccepted: true,
+          consumerLegalVersion: consumerLegal.version,
+          consumerLegalHash: consumerLegal.hash,
           items: {
             create: quote.lines.map((line) => ({
               productId: line.productId,

@@ -62,7 +62,6 @@ type AmbassadorRow = {
 
 type Props = {
   ambassadors: AmbassadorRow[];
-  legalDocsApproved: boolean;
   role: "SUPER_ADMIN" | "OPERATIONS" | "FINANCE" | "CONTENT_REVIEW";
 };
 
@@ -71,7 +70,6 @@ const fieldClass =
 
 export function AdminAmbassadors({
   ambassadors,
-  legalDocsApproved,
   role
 }: Props) {
   const router = useRouter();
@@ -234,16 +232,11 @@ export function AdminAmbassadors({
           className={fieldClass}
         />
         <button
-          disabled={busy === "invite" || !legalDocsApproved}
+          disabled={busy === "invite"}
           className="rounded-lg bg-purple-700 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40 sm:col-span-4"
         >
           Yeni Elçi Daveti Oluştur
         </button>
-        {!legalDocsApproved ? (
-          <p className="text-sm text-amber-700 sm:col-span-4">
-            Davet açılmadan önce AMBASSADOR_LEGAL_DOCS_APPROVED=true olmalı.
-          </p>
-        ) : null}
         {inviteUrl ? (
           <div className="flex flex-wrap items-center gap-2 rounded-lg bg-green-50 p-3 text-sm sm:col-span-4">
             <code className="min-w-0 flex-1 break-all">{inviteUrl}</code>

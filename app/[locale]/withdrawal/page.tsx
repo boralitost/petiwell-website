@@ -10,12 +10,12 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
-  const doc = getConsumerPolicy(locale, "cookies");
+  const doc = getConsumerPolicy(locale, "withdrawal");
   return { title: `${doc.title} | Petiwell` };
 }
 
-export default async function CookiesPage(props: Props) {
+export default async function WithdrawalPage(props: Props) {
   const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
-  return <PolicyDocument doc={getConsumerPolicy(locale, "cookies")} />;
+  return <PolicyDocument doc={getConsumerPolicy(locale, "withdrawal")} />;
 }

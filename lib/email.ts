@@ -394,7 +394,7 @@ export async function sendOrderPaidEmail(order: OrderEmailPayload) {
      </p>
      <p>Teslimat: ${order.shippingAddress}, ${order.city}</p>
      <p style="font-size:12px;color:#6f676f">
-       Mesafeli satış ve cayma hakları için petiwell.com/tr/distance-sales adresine bakabilirsiniz.
+       Mesafeli satış, 14 günlük cayma hakkı ve hijyen istisnaları: petiwell.com/tr/shipping — Cayma formu: petiwell.com/tr/withdrawal — KVKK: petiwell.com/tr/privacy
      </p>`
   );
 

@@ -470,6 +470,8 @@ const en = {
     cookies: "Cookies",
     shipping: "Delivery & Returns",
     distanceSales: "Distance Sales",
+    preInfo: "Pre-contract info",
+    withdrawal: "Withdrawal form",
     paymentsNote: "Payments via PayTR · Visa / Mastercard",
     social: {
       instagram: "Instagram",

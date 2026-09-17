@@ -2,15 +2,14 @@
 
 ## Yayına açma kapıları
 
-Program varsayılan olarak kapalıdır. İlk davetten önce:
+Program `2026-09-17` metinleriyle açıktır. Davet için avukat veya mali müşavir imzası aranmaz.
 
-1. Mali müşavir, 20/B ile faturalı işletme ödeme akışlarını ve ödeme dönemini yazılı olarak onaylamalı.
-2. Avukat; Elçilik sözleşmesi, KVKK aydınlatması, içerik/iddia rehberi ve komisyon kurallarının son metinlerini onaylamalı.
-3. `AMBASSADOR_DOCUMENT_VERSION` son sürüme yükseltilmeli, ardından `AMBASSADOR_LEGAL_DOCS_APPROVED=true` yapılmalı.
-4. Private S3 bucket dış erişime kapalı olmalı; erişim anahtarının yalnızca bu bucket için en az yetkisi bulunmalı.
-5. Dosya tarama servisi `{"clean":true}` yanıt sözleşmesiyle test edilmeli. Production ortamında tarama servisi yoksa yükleme bilinçli olarak bloklanır.
-6. `AMBASSADOR_DATA_ENCRYPTION_KEY`, hash pepper, referral secret ve `CRON_SECRET` secret manager'da oluşturulmalı. Anahtar rotasyonu ayrıca planlanmadan encryption key değiştirilmemeli.
-7. Migration staging veritabanında uygulanmalı; davet, onboarding, PayTR ödeme, teslim/iade, komisyon ve payout uçtan uca test edilmeli.
+1. Elçi onayı elektronik kayıt + belge hash ile tutulur.
+2. Ödeme otomatik EFT değildir; admin banka referansı girer. Faturalı elçide payout `WAITING_DOCUMENT` kalır. 20/B belgesi onboarding’de zorunludur.
+3. Private depolama dış erişime kapalı olmalı; erişim anahtarının yalnızca bu bucket için en az yetkisi bulunmalı.
+4. Dosya tarama servisi `{"clean":true}` yanıt sözleşmesiyle test edilmeli. Production ortamında tarama servisi yoksa yükleme bilinçli olarak bloklanır.
+5. `AMBASSADOR_DATA_ENCRYPTION_KEY`, hash pepper, referral secret ve `CRON_SECRET` secret manager'da oluşturulmalı. Anahtar rotasyonu ayrıca planlanmadan encryption key değiştirilmemeli.
+6. Migration production’da `prisma migrate deploy` ile uygulanır (Vercel build bunu çalıştırır).
 
 ## Finansal kurallar
 

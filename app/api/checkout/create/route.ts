@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       notes: String(body.notes || ""),
       distanceSalesAccepted: Boolean(body.distanceSalesAccepted),
       preInfoAccepted: Boolean(body.preInfoAccepted),
+      privacyAccepted: Boolean(body.privacyAccepted),
       locale,
       items: Array.isArray(body.items) ? body.items : [],
       promoCode: String(body.promoCode || ""),

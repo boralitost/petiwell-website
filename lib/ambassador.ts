@@ -28,7 +28,7 @@ import {
   normalizeAmbassadorCoupon
 } from "@/lib/ambassador-coupon";
 import {
-  AMBASSADOR_LEGAL_DOCUMENTS,
+  getAmbassadorLegalDocuments,
   ambassadorLegalDocsApproved
 } from "@/lib/ambassador-documents";
 import {
@@ -409,10 +409,9 @@ export async function submitAmbassadorOnboarding(input: {
   ) {
     return { ok: false as const, error: "tax_document_required" };
   }
+  const legalDocuments = getAmbassadorLegalDocuments();
   const accepted = new Set(input.acceptedTypes);
-  if (
-    AMBASSADOR_LEGAL_DOCUMENTS.some((document) => !accepted.has(document.type))
-  ) {
+  if (legalDocuments.some((document) => !accepted.has(document.type))) {
     return { ok: false as const, error: "consents_required" };
   }
   const ipAddressHash = input.ipAddress
@@ -420,7 +419,7 @@ export async function submitAmbassadorOnboarding(input: {
     : null;
   const now = new Date();
   await prisma.$transaction(async (tx) => {
-    for (const document of AMBASSADOR_LEGAL_DOCUMENTS) {
+    for (const document of legalDocuments) {
       await tx.ambassadorConsent.upsert({
         where: {
           ambassadorId_documentType_documentVersion: {

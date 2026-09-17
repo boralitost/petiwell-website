@@ -7,7 +7,6 @@ import { AdminAmbassadors } from "@/components/admin/AdminAmbassadors";
 import { prisma } from "@/lib/db";
 import { ensureInventorySeeded } from "@/lib/inventory";
 import { getCatalogProduct } from "@/lib/product";
-import { ambassadorLegalDocsApproved } from "@/lib/ambassador-documents";
 
 export const dynamic = "force-dynamic";
 
@@ -225,7 +224,6 @@ export default async function AdminPage() {
       ) : null}
       <AdminAmbassadors
         ambassadors={ambassadors}
-        legalDocsApproved={ambassadorLegalDocsApproved()}
         role={principal.role}
       />
     </main>

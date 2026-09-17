@@ -17,6 +17,16 @@ type CatalogItem = {
   sellable: boolean;
 };
 
+type SellerIdentity = {
+  legalName: string;
+  address: string;
+  city: string;
+  phone: string;
+  email: string;
+  taxOffice: string;
+  taxNumber: string;
+};
+
 type Props = {
   locale: Locale;
   dict: Dictionary;
@@ -24,6 +34,7 @@ type Props = {
   shippingFlatTry: number;
   shippingFreeOverTry: number;
   paytrTestMode: boolean;
+  seller: SellerIdentity;
   account?: {
     email: string;
     name: string;
@@ -89,6 +100,7 @@ export function CheckoutShell({
   shippingFlatTry,
   shippingFreeOverTry,
   paytrTestMode,
+  seller,
   account
 }: Props) {
   const { items, setQuantity, removeItem, count } = useCart();
@@ -264,6 +276,7 @@ export function CheckoutShell({
       notes: String(fd.get("notes") || ""),
       distanceSalesAccepted: fd.get("distanceSalesAccepted") === "on",
       preInfoAccepted: fd.get("preInfoAccepted") === "on",
+      privacyAccepted: fd.get("privacyAccepted") === "on",
       items: items.map((i) => ({
         productId: i.productId,
         quantity: i.quantity
@@ -429,13 +442,25 @@ export function CheckoutShell({
           </fieldset>
 
           <fieldset className="space-y-3 rounded-2xl border border-line bg-surface p-5 text-sm">
+            <div className="rounded-xl bg-cream/60 px-3 py-3 text-xs leading-relaxed text-muted">
+              <p className="font-semibold text-charcoal">
+                {locale === "en" ? "Seller" : "Satıcı"}
+              </p>
+              <p className="mt-1 whitespace-pre-line">
+                {`${seller.legalName}\n${seller.address}, ${seller.city}\n${seller.phone} · ${seller.email}\n${seller.taxOffice} / ${seller.taxNumber}`}
+              </p>
+            </div>
             <label className="flex items-start gap-2">
               <input name="preInfoAccepted" type="checkbox" required className="mt-1" />
               <span>
                 <Link href={`/${locale}/pre-info`} className="text-brand underline">
-                  Ön bilgilendirme formunu
+                  {locale === "en"
+                    ? "Pre-contract information form"
+                    : "Ön bilgilendirme formunu"}
                 </Link>{" "}
-                okudum ve kabul ediyorum.
+                {locale === "en"
+                  ? "— I have read and accept it. I understand this creates a payment obligation."
+                  : "okudum ve kabul ediyorum. Ödemenin bir ödeme yükümlülüğü doğurduğunu biliyorum."}
               </span>
             </label>
             <label className="flex items-start gap-2">
@@ -450,9 +475,43 @@ export function CheckoutShell({
                   href={`/${locale}/distance-sales`}
                   className="text-brand underline"
                 >
-                  Mesafeli satış sözleşmesini
+                  {locale === "en"
+                    ? "Distance sales agreement"
+                    : "Mesafeli satış sözleşmesini"}
                 </Link>{" "}
-                okudum ve kabul ediyorum.
+                {locale === "en"
+                  ? "and"
+                  : "ile"}{" "}
+                <Link
+                  href={`/${locale}/shipping`}
+                  className="text-brand underline"
+                >
+                  {locale === "en"
+                    ? "delivery, 14-day withdrawal and hygiene exceptions"
+                    : "teslimat, 14 günlük cayma hakkı ve hijyen istisnalarını"}
+                </Link>{" "}
+                {locale === "en"
+                  ? "— I have read and accept them."
+                  : "okudum ve kabul ediyorum."}{" "}
+                <Link
+                  href={`/${locale}/withdrawal`}
+                  className="text-brand underline"
+                >
+                  {locale === "en" ? "Withdrawal form" : "Cayma formu"}
+                </Link>
+              </span>
+            </label>
+            <label className="flex items-start gap-2">
+              <input name="privacyAccepted" type="checkbox" required className="mt-1" />
+              <span>
+                <Link href={`/${locale}/privacy`} className="text-brand underline">
+                  {locale === "en"
+                    ? "Privacy / KVKK notice"
+                    : "Gizlilik / KVKK Aydınlatma Metnini"}
+                </Link>{" "}
+                {locale === "en"
+                  ? "— I have read it. I understand that data needed to perform the order is processed on that basis, and that analytics/ads cookies need separate banner consent."
+                  : "okudum. Siparişin ifası için zorunlu verilerin bu metne göre işleneceğini; analitik/reklam çerezlerinin ayrıca çerez bandı rızasına bağlı olduğunu anlıyorum."}
               </span>
             </label>
           </fieldset>

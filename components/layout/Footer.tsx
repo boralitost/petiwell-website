@@ -80,8 +80,14 @@ export function Footer({ locale }: Props) {
             <Link href={`/${locale}/shipping`} className="hover:text-brand">
               {dict.footer.shipping}
             </Link>
+            <Link href={`/${locale}/pre-info`} className="hover:text-brand">
+              {dict.footer.preInfo}
+            </Link>
             <Link href={`/${locale}/distance-sales`} className="hover:text-brand">
               {dict.footer.distanceSales}
+            </Link>
+            <Link href={`/${locale}/withdrawal`} className="hover:text-brand">
+              {dict.footer.withdrawal}
             </Link>
           </div>
         </div>

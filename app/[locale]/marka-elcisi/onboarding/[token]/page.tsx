@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { getValidAmbassadorInvite } from "@/lib/ambassador";
-import { AMBASSADOR_LEGAL_DOCUMENTS } from "@/lib/ambassador-documents";
+import { getAmbassadorLegalDocuments } from "@/lib/ambassador-documents";
 import { AmbassadorOnboarding } from "@/components/ambassador/AmbassadorOnboarding";
 
 export const dynamic = "force-dynamic";
@@ -65,7 +65,7 @@ export default async function AmbassadorOnboardingPage(props: Props) {
             }
           : null
       }
-      documents={AMBASSADOR_LEGAL_DOCUMENTS.map((document) => ({
+      documents={getAmbassadorLegalDocuments().map((document) => ({
         type: document.type,
         title: document.title,
         version: document.version,

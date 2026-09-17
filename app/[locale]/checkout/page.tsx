@@ -10,6 +10,7 @@ import {
 import { getProducts } from "@/lib/product";
 import { CheckoutShell } from "@/components/cart/CheckoutShell";
 import { getCurrentUser } from "@/lib/account";
+import { getCompanyInfo } from "@/lib/company";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +62,7 @@ export default async function CheckoutPage(props: Props) {
       shippingFlatTry={getShippingFlatTry()}
       shippingFreeOverTry={getShippingFreeOverTry()}
       paytrTestMode={process.env.PAYTR_TEST_MODE !== "0"}
+      seller={getCompanyInfo()}
       account={
         user
           ? {

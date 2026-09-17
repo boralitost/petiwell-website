@@ -119,6 +119,7 @@ export function AmbassadorOnboarding({
   const [accepted, setAccepted] = useState<Set<AmbassadorConsentType>>(
     new Set()
   );
+  const [opened, setOpened] = useState<Set<AmbassadorConsentType>>(new Set());
   const [openDocument, setOpenDocument] = useState<AmbassadorConsentType | null>(
     null
   );
@@ -685,6 +686,11 @@ export function AmbassadorOnboarding({
         {screen === 4 ? (
           <div className={`${cardClass} space-y-4`}>
             <h1 className="text-xl font-semibold">Zorunlu belgeler</h1>
+            <p className="text-sm text-muted">
+              Onay kutusu, ilgili belgeyi açıp okuduktan sonra aktif olur. KVKK
+              metninin okunması açık rıza değildir; programın ifası için zorunlu
+              veriler sözleşmeye dayanır.
+            </p>
             {documents.map((document) => (
               <div
                 key={document.type}
@@ -699,7 +705,14 @@ export function AmbassadorOnboarding({
                   </div>
                   <button
                     type="button"
-                    onClick={() => setOpenDocument(document.type)}
+                    onClick={() => {
+                      setOpened((current) => {
+                        const next = new Set(current);
+                        next.add(document.type);
+                        return next;
+                      });
+                      setOpenDocument(document.type);
+                    }}
                     className="shrink-0 text-sm font-semibold text-brand underline"
                   >
                     Oku
@@ -708,6 +721,7 @@ export function AmbassadorOnboarding({
                 <label className="mt-3 flex gap-2 text-sm">
                   <input
                     type="checkbox"
+                    disabled={!opened.has(document.type)}
                     checked={accepted.has(document.type)}
                     onChange={(event) => {
                       const next = new Set(accepted);
@@ -743,12 +757,16 @@ export function AmbassadorOnboarding({
           >
             <h1 className="text-xl font-semibold">Son beyanlar</h1>
             {[
-              "18 yaşından büyüğüm.",
-              "Petiwell’e verdiğim bilgilerin doğru olduğunu onaylıyorum.",
-              "Vergi statümde veya banka bilgilerimde değişiklik olursa bildireceğim.",
-              "Petiwell adına sipariş veya ödeme alamayacağımı biliyorum.",
-              "Kendi kodumla kendi alışverişimden komisyon kazanamayacağımı biliyorum.",
-              "Paketi teslim aldıktan sonra 14 gün içinde kalıcı içerik paylaşacağımı biliyorum."
+              "18 yaşını doldurdum; işçi, acente veya ticari temsilci olmadığımı, bağımsız iş gördüğümü kabul ederim.",
+              "Petiwell’e verdiğim kimlik, iletişim, vergi ve banka bilgilerinin doğru ve bana ait olduğunu onaylıyorum.",
+              "Vergi statümde veya banka bilgilerimde değişiklik olursa derhâl bildireceğim. 20/B veya fatura beyanımın doğruluğundan ve kendi vergi yükümlülüğümden sorumluyum; Petiwell vergi danışmanlığı vermez.",
+              "Petiwell adına sipariş, ödeme, iade veya müşteri kişisel verisi alamayacağımı biliyorum.",
+              "Kendi kodum veya referral’ımla kendi alışverişimden komisyon kazanamayacağımı biliyorum.",
+              "Paketi teslim aldıktan sonra 14 gün içinde kalıcı içerik paylaşacağımı ve ilk içeriği yayımdan önce sunacağımı biliyorum.",
+              "Ücret, komisyon veya bedelsiz ürün karşılığı her paylaşımda “Reklam | Petiwell ile iş birliği” ibaresini ilk bakışta görünür şekilde koyacağım.",
+              "Tedavi, teşhis, veteriner yerine geçme veya kanıtlanmamış sağlık iddiası yapmayacağım.",
+              "Program içeriğimde Petiwell’e tanıtım ve ispat amaçlı gayri münhasır lisans verdiğimi kabul ederim.",
+              "Gelir veya satış garantisi olmadığını; komisyonun yalnızca petiwell.com nitelikli satışlarından doğacağını biliyorum."
             ].map((text) => (
               <label key={text} className="flex gap-2 text-sm">
                 <input type="checkbox" required />

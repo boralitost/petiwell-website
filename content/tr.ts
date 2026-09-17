@@ -470,6 +470,8 @@ const tr = {
     cookies: "Çerezler",
     shipping: "Teslimat & İade",
     distanceSales: "Mesafeli Satış",
+    preInfo: "Ön Bilgilendirme",
+    withdrawal: "Cayma Formu",
     paymentsNote: "Ödeme altyapısı PayTR · Visa / Mastercard",
     social: {
       instagram: "Instagram",

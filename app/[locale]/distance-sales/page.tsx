@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
 import { Locale, isLocale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/dictionary";
+import { getConsumerPolicy } from "@/lib/legal-consumer";
 import { PolicyDocument } from "@/components/legal/PolicyDocument";
+
+export const dynamic = "force-dynamic";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
-  const dict = getDictionary(locale);
-  return { title: `${dict.policies.distanceSales.title} | Petiwell` };
+  const doc = getConsumerPolicy(locale, "distanceSales");
+  return { title: `${doc.title} | Petiwell` };
 }
 
 export default async function DistanceSalesPage(props: Props) {
   const params = await props.params;
   const locale = (isLocale(params.locale) ? params.locale : "tr") as Locale;
-  const dict = getDictionary(locale);
-  return <PolicyDocument doc={dict.policies.distanceSales} />;
+  return <PolicyDocument doc={getConsumerPolicy(locale, "distanceSales")} />;
 }
